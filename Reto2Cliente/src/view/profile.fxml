@@ -7,19 +7,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerProfile">
    <children>
       <Label layoutX="108.0" layoutY="28.0" prefHeight="58.0" prefWidth="385.0" text="¡Has iniciado sesión correctamente!">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <ImageView fitHeight="132.0" fitWidth="236.0" layoutX="169.0" layoutY="196.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@Jpdt.gif" />
-         </image>
-      </ImageView>
       <ImageView fitHeight="58.0" fitWidth="59.0" layoutX="122.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@manssilhouette_83703.png" />

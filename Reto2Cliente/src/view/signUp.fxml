@@ -1,47 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="603.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerSignUp">
    <children>
-      <Label alignment="CENTER" layoutX="211.0" layoutY="51.0" prefHeight="56.0" prefWidth="183.0" text="REGISTRARSE">
+      <Label alignment="CENTER" layoutX="209.0" layoutY="16.0" prefHeight="33.0" prefWidth="183.0" text="Registrarse" underline="true">
          <font>
-            <Font size="20.0" />
+            <Font name="Tahoma Bold" size="28.0" />
          </font>
       </Label>
-      <Label layoutX="96.0" layoutY="115.0" prefHeight="33.0" prefWidth="120.0" text="USUARIO:">
+      <Label layoutX="29.0" layoutY="222.0" text="Datos de contacto:">
          <font>
-            <Font size="14.0" />
+            <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="96.0" layoutY="159.0" prefHeight="33.0" prefWidth="120.0" text="CORREO:">
+      <Label layoutX="304.0" layoutY="96.0" prefHeight="33.0" prefWidth="120.0" text="Usuario:">
          <font>
-            <Font size="14.0" />
+            <Font size="13.0" />
          </font>
       </Label>
-      <TextField fx:id="txtFieldUsuario" layoutX="276.0" layoutY="119.0" prefHeight="25.0" prefWidth="183.0" />
-      <TextField fx:id="txtFieldCorreoR" layoutX="276.0" layoutY="163.0" prefHeight="25.0" prefWidth="183.0" />
-      <Button fx:id="btnIniciar" layoutX="205.0" layoutY="290.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="196.0" text="¿Ya tienes cuenta? Inicia sesión" />
-      <Button fx:id="btnRegistrarse" layoutX="217.0" layoutY="329.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="171.0" text="Registrarse">
+      <Label layoutX="28.0" layoutY="96.0" prefHeight="33.0" prefWidth="120.0" text="Email:">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="28.0" layoutY="136.0" prefHeight="33.0" prefWidth="120.0" text="Contraseña:">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="304.0" layoutY="136.0" prefHeight="33.0" prefWidth="120.0" text="Repetir contraseña:">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtFieldUsuario1" layoutX="112.0" layoutY="100.0" prefHeight="25.0" prefWidth="160.0" />
+      <TextField fx:id="txtFieldUsuario" layoutX="427.0" layoutY="100.0" prefHeight="25.0" prefWidth="160.0" />
+      <PasswordField fx:id="PassFieldR" layoutX="112.0" layoutY="140.0" prefHeight="25.0" prefWidth="160.0" />
+      <PasswordField fx:id="PassFieldR1" layoutX="427.0" layoutY="140.0" prefHeight="25.0" prefWidth="160.0" />
+      <Label layoutX="32.0" layoutY="254.0" prefHeight="33.0" prefWidth="120.0" text="Dirección:">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="33.0" layoutY="293.0" prefHeight="33.0" prefWidth="120.0" text="Teléfono:">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="305.0" layoutY="254.0" prefHeight="33.0" prefWidth="120.0" text="Código postal:">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtFieldCorreoR" layoutX="112.0" layoutY="261.0" prefHeight="25.0" prefWidth="160.0" />
+      <TextField fx:id="txtFieldCorreoR1" layoutX="425.0" layoutY="258.0" prefHeight="25.0" prefWidth="160.0" />
+      <TextField fx:id="txtFieldCorreoR2" layoutX="113.0" layoutY="300.0" prefHeight="25.0" prefWidth="160.0" />
+      <Hyperlink fx:id="hyperLinkR" layoutX="217.0" layoutY="339.0" prefHeight="23.0" prefWidth="175.0" text="¿Ya tienes cuenta? Inicia sesión" />
+      <Button fx:id="btnRegistrarse" layoutX="238.0" layoutY="369.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="127.0" text="Registrarse">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Label layoutX="96.0" layoutY="204.0" prefHeight="33.0" prefWidth="120.0" text="CONTRASEÑA:">
+      <Label layoutX="28.0" layoutY="66.0" text="Datos básicos:">
          <font>
-            <Font size="14.0" />
+            <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="96.0" layoutY="248.0" prefHeight="33.0" prefWidth="155.0" text="REPETIR CONTRASEÑA:">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
-      <TextField fx:id="txtFieldContraR" layoutX="276.0" layoutY="208.0" prefHeight="25.0" prefWidth="183.0" />
-      <TextField fx:id="txtFieldContraR2" layoutX="276.0" layoutY="252.0" prefHeight="25.0" prefWidth="183.0" />
+      <Separator blendMode="DIFFERENCE" layoutX="27.0" layoutY="196.0" opacity="0.2" prefHeight="9.0" prefWidth="556.0" />
    </children>
 </Pane>
