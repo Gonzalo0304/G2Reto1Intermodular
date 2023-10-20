@@ -4,26 +4,26 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerProfile">
+<AnchorPane prefHeight="353.0" prefWidth="499.0" styleClass="layout" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerProfile">
    <children>
-      <Label layoutX="108.0" layoutY="28.0" prefHeight="58.0" prefWidth="385.0" text="¡Has iniciado sesión correctamente!">
+      <Label layoutX="51.0" layoutY="9.0" prefHeight="98.0" prefWidth="425.0" text="¡Has iniciado sesión correctamente!" textFill="#394e57">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <ImageView fitHeight="58.0" fitWidth="59.0" layoutX="122.0" layoutY="108.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="58.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@manssilhouette_83703.png" />
          </image>
       </ImageView>
-      <Label layoutX="208.0" layoutY="122.0" prefHeight="30.0" prefWidth="155.0" text="Usuario" />
-      <Button layoutX="421.0" layoutY="352.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="144.0" text="Cerrar sesión">
+      <Label layoutX="59.0" layoutY="112.0" prefHeight="30.0" prefWidth="155.0" text="Usuario" />
+      <Button layoutX="178.0" layoutY="275.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="144.0" text="Cerrar sesión">
          <font>
-            <Font size="14.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
       </Button>
    </children>
-</Pane>
+</AnchorPane>

@@ -8,6 +8,7 @@ package controller;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,21 +27,19 @@ public class ControllerSignIn {
 
     @FXML
     private Button btnIniciarSesion;
-    private TextField txtFieldCorreo;
+    private TextField txtFieldEmail;
     private TextField txtFieldPass;
     private Hyperlink hplNoCuenta;
 
     public void iniciarSesion() {
-        boolean correoBien = false;
-        boolean passBien = false;
-        String texto = txtFieldCorreo.getText().toString();
+        String texto = txtFieldEmail.getText().toString();
         String pass = txtFieldPass.getText().toString();
-        if (!texto.isEmpty()) {
-            correoBien = true;
+        if (texto.isEmpty()) {
+            System.out.println("correo no bien");
         }
 
-        if (!texto.isEmpty()) {
-            passBien = true;
+        if (pass.isEmpty()) {
+            System.out.println("passwd bien");
         }
     }
 
@@ -61,4 +61,5 @@ public class ControllerSignIn {
             Logger.getLogger(ControllerSignIn.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
 }
