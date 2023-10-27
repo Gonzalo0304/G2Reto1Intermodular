@@ -5,6 +5,7 @@
  */
 package reto2cliente;
 
+import controller.ControllerSignIn;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,16 +28,16 @@ public class Reto2Cliente extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/signIn.fxml"));
-
-            Parent root = loader.load();
-
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-
-            stage.setScene(scene);
-
-            stage.show();
+           // System.out.println(greeting);
+         FXMLLoader loader=new FXMLLoader(
+                    getClass().getResource("/view/signIn.fxml"));
+            Parent root = (Parent)loader.load();
+            //Get controller for graph 
+            ControllerSignIn viewController=
+                    ((ControllerSignIn)loader.getController());
+            //Set greeting to be used in JavaFX view controller
+            viewController.setStage(primaryStage);
+            viewController.inicializarVentana(root);
         } catch (IOException ex) {
             Logger.getLogger(Reto2Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }

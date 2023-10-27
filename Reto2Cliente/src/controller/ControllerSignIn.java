@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
  */
 public class ControllerSignIn {
 
+    private Stage stage;
     @FXML
     private Button btnIniciarSesion;
     private TextField txtFieldEmail;
@@ -45,21 +46,32 @@ public class ControllerSignIn {
 
     public void noCuenta() {
         try {
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/signUp.fxml"));
-
-            Parent root = loader.load();
-
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-
-            stage.setScene(scene);
-
-            stage.show();
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/signUp.fxml"));
+            Parent root = (Parent) loader.load();
+            //Get controller for graph 
+            ControllerSignUp viewController
+                    = ((ControllerSignUp) loader.getController());
+            //Set greeting to be used in JavaFX view controller
+            viewController.setStage(stage);
+            viewController.initSignUp(root);
 
         } catch (IOException ex) {
-            Logger.getLogger(ControllerSignIn.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControllerSignUp.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void setStage(Stage primaryStage) {
+        this.stage = primaryStage;
+    }
+
+    public void inicializarVentana(Parent root) {
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+
+        stage.setTitle("SignIN");
+        stage.setResizable(false);
+        stage.show();
     }
 
 }

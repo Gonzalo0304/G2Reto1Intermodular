@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="603.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerSignUp">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="603.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerSignUp">
    <children>
       <Label alignment="CENTER" layoutX="209.0" layoutY="16.0" prefHeight="33.0" prefWidth="183.0" text="Registrarse" textFill="#394e57">
          <font>
@@ -41,10 +41,10 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="txtFieldUsuario1" layoutX="118.0" layoutY="100.0" prefHeight="25.0" prefWidth="150.0" />
-      <TextField fx:id="txtFieldUsuario" layoutX="427.0" layoutY="100.0" prefHeight="25.0" prefWidth="150.0" />
-      <PasswordField fx:id="PassFieldR" layoutX="118.0" layoutY="140.0" prefHeight="25.0" prefWidth="150.0" />
-      <PasswordField fx:id="PassFieldR1" layoutX="427.0" layoutY="140.0" prefHeight="25.0" prefWidth="150.0" />
+      <TextField fx:id="txtFieldEmailR" layoutX="118.0" layoutY="100.0" prefHeight="25.0" prefWidth="150.0" />
+      <TextField fx:id="txtFieldNombre" layoutX="427.0" layoutY="100.0" prefHeight="25.0" prefWidth="150.0" />
+      <PasswordField fx:id="passFieldR" layoutX="118.0" layoutY="140.0" prefHeight="25.0" prefWidth="150.0" />
+      <PasswordField fx:id="passFieldR1" layoutX="427.0" layoutY="140.0" prefHeight="25.0" prefWidth="150.0" />
       <Label layoutX="36.0" layoutY="254.0" prefHeight="33.0" prefWidth="120.0" text="Dirección:" textFill="#5d6568">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -60,17 +60,17 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="txtFieldCorreoR" layoutX="118.0" layoutY="261.0" prefHeight="25.0" prefWidth="150.0" />
-      <TextField fx:id="txtFieldCorreoR1" layoutX="425.0" layoutY="258.0" prefHeight="25.0" prefWidth="150.0" />
-      <TextField fx:id="txtFieldCorreoR2" layoutX="119.0" layoutY="300.0" prefHeight="25.0" prefWidth="150.0" />
-      <Hyperlink fx:id="hyperLinkR" layoutX="217.0" layoutY="339.0" prefHeight="23.0" prefWidth="175.0" text="¿Ya tienes cuenta? Inicia sesión" textFill="#565b56" />
+      <TextField fx:id="txtFieldDireccion" layoutX="118.0" layoutY="261.0" prefHeight="25.0" prefWidth="150.0" />
+      <TextField fx:id="txtFieldCodigoPostal" layoutX="425.0" layoutY="258.0" prefHeight="25.0" prefWidth="150.0" />
+      <TextField fx:id="txtFieldTelefono" layoutX="119.0" layoutY="300.0" prefHeight="25.0" prefWidth="150.0" />
+      <Hyperlink fx:id="hplNoCuenta" layoutX="200.0" layoutY="339.0" onAction="#openSignIn" prefHeight="23.0" prefWidth="271.0" text="¿Ya tienes cuenta? Inicia sesión" textFill="#565b56" />
       <Label layoutX="34.0" layoutY="62.0" text="Datos básicos:" textFill="#394e57">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
       <Separator blendMode="DIFFERENCE" layoutX="33.0" layoutY="196.0" opacity="0.2" prefHeight="8.0" prefWidth="545.0" />
-      <Button fx:id="btnRegistrarse" layoutX="238.0" layoutY="369.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="127.0" text="Registrarse">
+      <Button fx:id="btnRegistrarse" layoutX="238.0" layoutY="369.0" mnemonicParsing="false" onAction="#signUp" prefHeight="33.0" prefWidth="127.0" text="Registrarse">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
