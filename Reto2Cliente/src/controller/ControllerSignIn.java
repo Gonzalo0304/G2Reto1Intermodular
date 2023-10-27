@@ -33,8 +33,7 @@ import javafx.stage.WindowEvent;
  */
 public class ControllerSignIn {
 
-    Stage stage;
-
+    private Stage stage;
     @FXML
     private Button btnIniciarSesion;
     @FXML
@@ -144,7 +143,7 @@ public class ControllerSignIn {
             viewController.initStage(root);
 
         } catch (IOException ex) {
-            Logger.getLogger(ControllerSignIn.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ControllerSignUp.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
