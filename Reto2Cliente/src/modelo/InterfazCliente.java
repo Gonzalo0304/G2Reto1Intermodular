@@ -5,10 +5,14 @@
  */
 package modelo;
 
+import clases.Mensaje;
+
 /**
  *
- * @author Iñigo
+ * @author Gonzalo
  */
-public class Interfaz {
-    
+public interface InterfazCliente {
+    public Mensaje singIn(Mensaje respuesta);
+    public Mensaje signUp(Mensaje respuesta);
+    public void closeApli();
 }

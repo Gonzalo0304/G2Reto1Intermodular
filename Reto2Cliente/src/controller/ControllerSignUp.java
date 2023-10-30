@@ -36,6 +36,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import modelo.Implementacion;
+import modelo.InterfazCliente;
 
 /**
  *
@@ -331,7 +333,8 @@ public class ControllerSignUp {
                 ButtonType.OK, ButtonType.CANCEL);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            Platform.exit();
+            InterfazCliente inter = new Implementacion();
+            inter.closeApli();
         } else {
             event.consume();
         }
