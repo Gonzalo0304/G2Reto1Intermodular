@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -28,16 +29,26 @@
          </font>
       </Label>
       <TextField fx:id="txtFieldEmail" layoutX="373.0" layoutY="167.0" prefHeight="25.0" prefWidth="160.0" />
-      <PasswordField fx:id="txtFieldPass" layoutX="373.0" layoutY="213.0" prefHeight="25.0" prefWidth="160.0" />
-      <Hyperlink fx:id="hplNoCuenta" layoutX="322.0" layoutY="270.0" onAction="#noCuenta" prefHeight="23.0" prefWidth="171.0" text="¿No tienes cuenta? Regístrate" textFill="#383b51" underline="true" />
-      <Button id="button" fx:id="btnIniciarSesion" layoutX="333.0" layoutY="316.0" mnemonicParsing="false" onAction="#iniciarSesion" prefHeight="40.0" prefWidth="150.0" stylesheets="@styles.css" text="Iniciar sesión">
+      <TextField fx:id="txtFieldPass" layoutX="373.0" layoutY="213.0" prefHeight="25.0" prefWidth="160.0" />
+      <PasswordField fx:id="passField" layoutX="373.0" layoutY="213.0" prefHeight="25.0" prefWidth="160.0" />
+      <ToggleButton fx:id="tbMostrarPass" layoutX="540.0" layoutY="213.0" mnemonicParsing="false" prefHeight="13.0" prefWidth="26.0">
+         <graphic>
+            <ImageView fx:id="ivMostrarPass" fitHeight="16.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@ojoCerrado.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </ToggleButton>
+      <Hyperlink fx:id="hplNoCuenta" layoutX="322.0" layoutY="270.0" prefHeight="23.0" prefWidth="171.0" text="¿No tienes cuenta? Regístrate" textFill="#383b51" underline="true" />
+      <Button id="button" fx:id="btnIniciarSesion" layoutX="333.0" layoutY="316.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" stylesheets="@styles.css" text="Iniciar sesión">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
       <ImageView fitHeight="428.0" fitWidth="462.0" layoutX="-249.0">
          <image>
-            <Image url="@./EE.png" />
+            <Image url="@EE.png" />
          </image>
       </ImageView>
    </children>

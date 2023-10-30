@@ -7,8 +7,11 @@ package modelo;
 
 /**
  *
- * @author Iñigo
+ * @author David
  */
 public class Factoria {
-    
+
+    public static Interfaz getInterfaz() {
+        return new Implementacion();
+    }
 }
