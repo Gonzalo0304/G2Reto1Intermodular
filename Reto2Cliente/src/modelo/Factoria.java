@@ -11,7 +11,7 @@ package modelo;
  */
 public class Factoria {
 
-    public static Interfaz getInterfaz() {
-        return new Implementacion();
+    public static InterfazCliente getInterfaz() {
+        return (InterfazCliente) new Implementacion();
     }
 }

@@ -79,9 +79,10 @@ import modelo.InterfazCliente;
  */
 public class ControllerSignUp {
 
+    Stage stage;
     private static final Logger logMsg = Logger.getLogger("");
-
-    private Stage stage;
+    Image oAbierto = new Image(getClass().getResource("/view/ojoAbierto.png").toExternalForm());
+    Image oCerrado = new Image(getClass().getResource("/view/ojoCerrado.png").toExternalForm());
 
     @FXML
     private Button btnRegistrarse;
@@ -99,6 +100,14 @@ public class ControllerSignUp {
     private PasswordField passFieldR;
     @FXML
     private PasswordField passFieldR1;
+    @FXML
+    private TextField txtFieldPassR;
+    @FXML
+    private TextField txtFieldPassR1;
+    @FXML
+    private ImageView ivMostrarPassR;
+    @FXML
+    private ImageView ivMostrarPassR1;
     @FXML
     private Hyperlink hplNoCuenta;
 
@@ -128,8 +137,13 @@ public class ControllerSignUp {
         stage.setTitle("SignUp");
         stage.setResizable(false);
         txtFieldEmailR.requestFocus();
+        btnRegistrarse.setDefaultButton(true);
+        txtFieldPassR.setFocusTraversable(false);
+        txtFieldPassR1.setFocusTraversable(false);
         btnRegistrarse.setOnAction(this::signUp);
         hplNoCuenta.setOnAction(this::openSignIn);
+        tbMostrarPassR.setOnAction(this::handleShowPassR);
+        tbMostrarPassR1.setOnAction(this::handleShowPassR1);
         stage.setOnCloseRequest(this::closeRequest);
         stage.show();
     }
@@ -151,7 +165,7 @@ public class ControllerSignUp {
                     = ((ControllerSignIn) loader.getController());
             //Set greeting to be used in JavaFX view controller
             viewController.setStage(stage);
-            viewController.inicializarVentana(root);
+            viewController.initStage(root);
         } catch (IOException ex) {
             Logger.getLogger(ControllerSignUp.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -476,7 +490,7 @@ public class ControllerSignUp {
      * @throws InvalidNameLength 
      */
     private void checkNameLength() throws InvalidNameLength {
-        Pattern pattern = Pattern.compile("^[a-zA-Z]{3,}+\\s[a-zA-Z]+\\s[a-zA-Z]$");
+        Pattern pattern = Pattern.compile("^[a-zA-Z]{3,}+\\s[a-zA-Z]+\\s[a-zA-Z]+$");
         Matcher matcher = pattern.matcher(txtFieldNombre.getText());
         if (matcher.find() == false) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Error de registro: \nPorfavor un nombre valido", ButtonType.OK);
@@ -584,4 +598,65 @@ public class ControllerSignUp {
         }
     }
 
+
+    public void handleOpenLogIn(ActionEvent actionEvent) {
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/signIn.fxml"));
+
+            Parent root = loader.load();
+
+            ControllerSignIn viewController = ((ControllerSignIn) loader.getController());
+            viewController.setStage(stage);
+            viewController.initStage(root);
+
+        } catch (IOException ex) {
+            Logger.getLogger(ControllerSignIn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    public void handleShowPassR(ActionEvent actionEvent) {
+        if (tbMostrarPassR.isSelected()) {
+            txtFieldPassR.setVisible(true);
+            txtFieldPassR.setFocusTraversable(true);
+            txtFieldPassR.requestFocus();
+            txtFieldPassR.positionCaret(txtFieldPassR.getText().length());
+            passFieldR.setVisible(false);
+            passFieldR.setFocusTraversable(false);
+            txtFieldPassR.setText(passFieldR.getText());
+            ivMostrarPassR.setImage(oAbierto);
+        } else {
+            txtFieldPassR.setVisible(false);
+            txtFieldPassR.setFocusTraversable(false);
+            passFieldR.setVisible(true);
+            passFieldR.setFocusTraversable(true);
+            passFieldR.requestFocus();
+            passFieldR.positionCaret(0);
+            passFieldR.setText(txtFieldPassR.getText());
+            ivMostrarPassR.setImage(oCerrado);
+        }
+    }
+
+    @FXML
+    public void handleShowPassR1(ActionEvent actionEvent) {
+        if (tbMostrarPassR1.isSelected()) {
+            txtFieldPassR1.setVisible(true);
+            txtFieldPassR1.setFocusTraversable(true);
+            txtFieldPassR1.requestFocus();
+            passFieldR1.setVisible(false);
+            passFieldR1.setFocusTraversable(false);
+            txtFieldPassR1.setText(passFieldR1.getText());
+            ivMostrarPassR1.setImage(oAbierto);
+        } else {
+            txtFieldPassR1.setVisible(false);
+            txtFieldPassR1.setFocusTraversable(false);
+            passFieldR1.setVisible(true);
+            passFieldR1.setFocusTraversable(true);
+            passFieldR1.requestFocus();
+            passFieldR1.setText(txtFieldPassR1.getText());
+            ivMostrarPassR1.setImage(oCerrado);
+        }
+
+    }
 }

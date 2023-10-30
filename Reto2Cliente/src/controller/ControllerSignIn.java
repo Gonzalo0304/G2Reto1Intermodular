@@ -1,8 +1,9 @@
 package controller;
 
-import excepciones.invalidEmailFormat;
-import excepciones.invalidPassFormat;
-import excepciones.notCompleteException;
+
+import excepciones.InvalidEmailFormat;
+import excepciones.InvalidPassFormat;
+import excepciones.NotCompleteException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -99,26 +100,26 @@ public class ControllerSignIn {
                             Logger.getLogger(ControllerSignIn.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }else{
-                        throw new invalidPassFormat("Error de inicio de sesión: \nPorfavor introduzca las credenciales correctamente");
+                        throw new InvalidPassFormat("Error de inicio de sesión: \nPorfavor introduzca las credenciales correctamente");
                     }
 
                 } else{
-                    throw new invalidEmailFormat("Error de inicio de sesión: \nPorfavor introduzca las credenciales correctamente");
+                    throw new InvalidEmailFormat("Error de inicio de sesión: \nPorfavor introduzca las credenciales correctamente");
                 }
 
             } else {
-                throw new notCompleteException("Error: \nLos campos no están informados");
+                throw new NotCompleteException("Error: \nLos campos no están informados");
 
             }
-        } catch (notCompleteException ex) {
+        } catch (NotCompleteException ex) {
             Alert alerta = new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK);
             alerta.setHeaderText(null);
             alerta.show();  
-        } catch (invalidEmailFormat ex) {
+        } catch (InvalidEmailFormat ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK);
             alert.setHeaderText(null);
             alert.show();
-        } catch (invalidPassFormat ex) {
+        } catch (InvalidPassFormat ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK);
             alert.setHeaderText(null);
             alert.show();
@@ -140,7 +141,7 @@ public class ControllerSignIn {
 
             ControllerSignUp viewController = ((ControllerSignUp) loader.getController());
             viewController.setStage(stage);
-            viewController.initStage(root);
+            viewController.initSignUp(root);
 
         } catch (IOException ex) {
             Logger.getLogger(ControllerSignUp.class.getName()).log(Level.SEVERE, null, ex);
@@ -201,19 +202,16 @@ public class ControllerSignIn {
 
     }
     
-    private boolean checkValidEmail(String texto) /*throws InvalidEmailFormat*/ {
+    private boolean checkValidEmail(String texto) throws InvalidEmailFormat {
         boolean emailBien = false;
-        Pattern pattern1 = Pattern.compile("^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\\.[a-zA-Z]{2,}$");
-        Pattern pattern2 = Pattern.compile("^[a-zA-Z0-9._]{3,}+@(.+)$");
+        Pattern pattern1 = Pattern.compile("^[a-zA-Z0-9._]{3,}+@[a-zA-Z0-9]+\\.[a-zA-Z]{2,}$");
 
         Matcher matcher = pattern1.matcher(texto);
         if (matcher.find() == false) {
-            matcher = pattern2.matcher(texto);
-            if (matcher.find() == false) {
-                emailBien=true;
-            }
+            emailBien = true;
         }
         return emailBien;
+        
     }
 
     private boolean checkValidPass(String pass) {
