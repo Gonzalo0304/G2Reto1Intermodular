@@ -5,10 +5,16 @@
  */
 package modelo;
 
+import clases.Mensaje;
+import clases.Usuario;
+
 /**
  *
- * @author Iñigo
+ * @author David.
  */
-public class Interfaz {
-    
+public interface Interfaz {
+
+    public Mensaje iniciarSesion(Mensaje mensaje);
+
+    public Mensaje registrarUsuario(Mensaje mensaje);
 }

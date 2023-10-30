@@ -5,10 +5,27 @@
  */
 package modelo;
 
+import clases.Mensaje;
+
 /**
  *
  * @author Iñigo
  */
-public class Implementacion {
-    
+public class Implementacion implements Interfaz {
+
+    public Mensaje iniciarSesion(Mensaje mensaje) {
+        Mensaje mnsj = null;
+
+        return mnsj;
+
+    }
+
+    @Override
+    public Mensaje registrarUsuario(Mensaje mensaje) {
+        Mensaje mnsj = null;
+
+        return mnsj;
+
+    }
+
 }

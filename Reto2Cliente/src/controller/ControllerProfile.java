@@ -1,0 +1,53 @@
+package controller;
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
+
+/**
+ *
+ * @author Iñigo
+ */
+public class ControllerProfile {
+
+    Stage stage;
+
+    @FXML
+    private Button btnCerrarSesion;
+
+    void inicializarVentana(Parent root) {
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+        btnCerrarSesion.setOnAction(this::handleLogOut);
+
+    }
+
+    public void handleLogOut(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/signIn.fxml"));
+
+            Parent root = loader.load();
+
+            ControllerSignIn viewController = ((ControllerSignIn) loader.getController());
+            viewController.setStage(stage);
+            viewController.initStage(root);
+        } catch (IOException ex) {
+            Logger.getLogger(ControllerProfile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+}
