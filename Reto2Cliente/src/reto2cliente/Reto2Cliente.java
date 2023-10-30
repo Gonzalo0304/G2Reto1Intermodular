@@ -32,7 +32,7 @@ public class Reto2Cliente extends Application {
                     ((ControllerSignIn)loader.getController());
             //Set greeting to be used in JavaFX view controller
             viewController.setStage(primaryStage);
-            viewController.inicializarVentana(root);
+            viewController.initStage(root);
         } catch (IOException ex) {
             Logger.getLogger(Reto2Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
