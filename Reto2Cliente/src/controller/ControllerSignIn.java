@@ -89,12 +89,12 @@ public class ControllerSignIn {
     public void handleSignIn(ActionEvent actionEvent) {
         String pass = passField.getText();
         String texto = txtFieldEmail.getText();
-        ClienteSocket csk = null;
+        ClienteSocket csk = new ClienteSocket();
         try {
             if (checkCompleteFileds(pass, texto)) {
                 if (!checkValidEmail(texto)) {
                     if (!checkValidPass(pass)) {
-                        Mensaje msj = null;
+                        Mensaje msj = new Mensaje();
                         Usuario us = new Usuario();
                         us.setEmail(texto);
                         us.setPass(pass);
@@ -103,10 +103,11 @@ public class ControllerSignIn {
                         msj.setMessageEnum(MessageEnum.SIGNIN);
 
                         Mensaje msj2 = csk.signIn(msj);
-                        
+
                         switch (msj2.getMessageEnum()) {
                             case OK:
                                 openProfile(msj2.getUser().getNombre());
+                                break;
                             case ERRORSIGNIN:
                                 throw new CredentialsException("Las credenciales no coinciden.");
                             case ERRORSERVER:
@@ -137,12 +138,22 @@ public class ControllerSignIn {
             alert.setHeaderText(null);
             alert.show();
         } catch (ServerErrorException ex) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK);
+            alerta.setHeaderText(null);
+            alerta.show();
             Logger.getLogger(ControllerSignIn.class.getName()).log(Level.SEVERE, null, ex);
         } catch (CredentialsException ex) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK);
+            alerta.setHeaderText(null);
+            alerta.show();
             Logger.getLogger(ControllerSignIn.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
+
+    /*Logger.getLogger(ControllerSignIn.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (CredentialsException ex) {
+            Logger.getLogger(ControllerSignIn.class.getName()).log(Level.SEVERE, null, ex);*/
 
     /**
      * Abrir la ventana signUp y cerrar la ventana signIn.

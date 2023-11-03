@@ -151,7 +151,7 @@ public class ControllerSignUp {
      */
     @FXML
     public void signUp(ActionEvent event) {
-        ClienteSocket csk = null;
+        ClienteSocket csk = new ClienteSocket();
         try {
             checkCompleteFields();
             checkValidEmail();
@@ -175,11 +175,16 @@ public class ControllerSignUp {
             Mensaje msj2 = csk.signUp(mensaje);
             switch (msj2.getMessageEnum()) {
                 case OK:
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "Creación de Usuario realizada correctamente.", ButtonType.OK);
+                    alert.show();
                     abrirSignIn();
+                    break;
                 case ERRORSIGNUP:
                     throw new CredentialsException("Las credenciales no coinciden.");
                 case ERRORSERVER:
                     throw new ServerErrorException("Error del server.");
+                default:
+                    System.out.println("Creacion correcta");
             }
 
         } catch (NotCompleteException | InvalidEmailFormat | InvalidNameLength | InvalidPassFormat | PassDontMatch | InvalidTlfFormat | InvalidCPFormat ex) {

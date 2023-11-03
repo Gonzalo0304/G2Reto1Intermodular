@@ -16,8 +16,8 @@ import modelo.InterfazCliente;
  */
 public class ClienteSocket implements InterfazCliente {
 
-    private final String HOST = ResourceBundle.getBundle("Reto2Libreria.conexion").getString("host");
-    private final int PUERTO = Integer.parseInt(ResourceBundle.getBundle("reto2Cliente.conexion").getString("puerto"));
+    private final String HOST = ResourceBundle.getBundle("clases.conexion").getString("host");
+    private final int PUERTO = Integer.parseInt(ResourceBundle.getBundle("clases.conexion").getString("puerto"));
 
     Mensaje msj2;
 
@@ -25,7 +25,7 @@ public class ClienteSocket implements InterfazCliente {
     public Mensaje signIn(Mensaje respuesta) {
         ObjectOutputStream oos;
         ObjectInputStream ois;
-        Mensaje msj = null;
+        Mensaje msj = respuesta;
 
         try {
             Socket sk = new Socket(HOST, PUERTO);
