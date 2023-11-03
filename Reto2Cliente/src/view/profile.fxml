@@ -19,7 +19,7 @@
             <Image url="@manssilhouette_83703.png" />
          </image>
       </ImageView>
-      <Label layoutX="60.0" layoutY="147.0" prefHeight="30.0" prefWidth="155.0" text="Usuario" />
+      <Label fx:id="lblUsuario" layoutX="60.0" layoutY="147.0" prefHeight="30.0" prefWidth="155.0" text="Usuario" />
       <Button fx:id="btnCerrarSesion" layoutX="230.0" layoutY="329.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="144.0" text="Cerrar sesión">
          <font>
             <Font name="System Bold" size="14.0" />

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="428.0" prefWidth="603.0" styleClass="layout" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerSignIn">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="603.0" styleClass="layout" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerSignIn">
    <children>
       <Label fx:id="lblIniciarSesion" alignment="CENTER" layoutX="313.0" layoutY="94.0" prefHeight="56.0" prefWidth="183.0" text="SignIn App" textFill="#394e57">
          <font>
@@ -46,7 +46,7 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
-      <ImageView fitHeight="428.0" fitWidth="462.0" layoutX="-249.0">
+      <ImageView fitHeight="448.0" fitWidth="480.0" layoutX="-249.0">
          <image>
             <Image url="@EE.png" />
          </image>

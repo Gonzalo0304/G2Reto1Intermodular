@@ -8,6 +8,7 @@ package controller;
 import clases.Mensaje;
 import clases.MessageEnum;
 import clases.Usuario;
+import excepciones.CredentialsException;
 import excepciones.InvalidCPFormat;
 import excepciones.NotCompleteException;
 import excepciones.InvalidEmailFormat;
@@ -15,6 +16,7 @@ import excepciones.InvalidPassFormat;
 import excepciones.PassDontMatch;
 import excepciones.InvalidNameLength;
 import excepciones.InvalidTlfFormat;
+import excepciones.ServerErrorException;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -22,41 +24,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import modelo.Implementacion;
-import modelo.InterfazCliente;
-
-import clases.Mensaje;
-import clases.MessageEnum;
-import clases.Usuario;
-import excepciones.InvalidCPFormat;
-import excepciones.NotCompleteException;
-import excepciones.InvalidEmailFormat;
-import excepciones.InvalidPassFormat;
-import excepciones.PassDontMatch;
-import excepciones.InvalidNameLength;
-import excepciones.InvalidTlfFormat;
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -75,6 +42,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import modelo.Implementacion;
 import modelo.InterfazCliente;
+import sockets.ClienteSocket;
 
 /**
  *
@@ -119,27 +87,16 @@ public class ControllerSignUp {
     private ToggleButton tbMostrarPassR1;
 
     /**
-    * Mostrar la ventana.
-    * La venta debe ser Modal
-    * La ventana no debe ser redimensionable.
-    * Todo debe estar habilitado.
-    * Establecer el focus en campo del email (txtFieldEmail)
-    * El botón por defecto debe ser el botón de Iniciar sesión (btnIniciarSesion)
-    * Establecer el título de ventana al valor: “Sign In”.
-    * 
+     * Mostrar la ventana. La venta debe ser Modal La ventana no debe ser
+     * redimensionable. Todo debe estar habilitado. Establecer el focus en campo
+     * del email (txtFieldEmail) El botón por defecto debe ser el botón de
+     * Iniciar sesión (btnIniciarSesion) Establecer el título de ventana al
+     * valor: “Sign In”.
+     *
      * @param root
      */
-    public void initSignUp(Parent root) {
+    public void initStage(Parent root) {
         Scene scene = new Scene(root);
-        scene.setOnKeyPressed(event -> {
-            switch (event.getCode()) {
-                case ENTER:
-                    btnRegistrarse.fire();
-                    break;
-                default:
-                    break;
-            }
-        });
         stage.setScene(scene);
         stage.setTitle("SignUp");
         stage.setResizable(false);
@@ -156,10 +113,10 @@ public class ControllerSignUp {
     }
 
     /**
-     * Hyperlink: abrir la ventana signUp con el metodo openSignUp 
-     * y cerrar la ventana signIn.
-     * 
-     * @param event 
+     * Hyperlink: abrir la ventana signUp con el metodo openSignUp y cerrar la
+     * ventana signIn.
+     *
+     * @param event
      */
     @FXML
     public void openSignIn(ActionEvent event) {
@@ -167,10 +124,8 @@ public class ControllerSignUp {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/view/signIn.fxml"));
             Parent root = (Parent) loader.load();
-            //Get controller for graph 
             ControllerSignIn viewController
                     = ((ControllerSignIn) loader.getController());
-            //Set greeting to be used in JavaFX view controller
             viewController.setStage(stage);
             viewController.initStage(root);
         } catch (IOException ex) {
@@ -183,21 +138,20 @@ public class ControllerSignUp {
     }
 
     /**
-     * Si se cumplen todas las condiciones se llamará a un método de lógica llamado
-     * SingUp en la capa de lógica y enviará los datos introducidos al lado
-     * servidor para registrarlos: 
-     * Si el registro no se a podido completar lanzar una excepcion con invalidSignUp 
-     * con el texto “Email repetido” 
-     * Si el registro resulta exitoso mostrar un aviso con el texto “Registro
-     * realizado correctamente”. 
-     * Una vez se cierre el aviso, cerrar la ventana Sign Up y abrir ventana de singIn. 
-     * Si se produce cualquier excepción en el proceso, mostrar un mensaje al usuario
-     * con el texto de la excepción.
-     * 
-     * @param event 
+     * Si se cumplen todas las condiciones se llamará a un método de lógica
+     * llamado SingUp en la capa de lógica y enviará los datos introducidos al
+     * lado servidor para registrarlos: Si el registro no se a podido completar
+     * lanzar una excepcion con invalidSignUp con el texto “Email repetido” Si
+     * el registro resulta exitoso mostrar un aviso con el texto “Registro
+     * realizado correctamente”. Una vez se cierre el aviso, cerrar la ventana
+     * Sign Up y abrir ventana de singIn. Si se produce cualquier excepción en
+     * el proceso, mostrar un mensaje al usuario con el texto de la excepción.
+     *
+     * @param event
      */
     @FXML
     public void signUp(ActionEvent event) {
+        ClienteSocket csk = null;
         try {
             checkCompleteFields();
             checkValidEmail();
@@ -214,9 +168,25 @@ public class ControllerSignUp {
             user.setCodigoPostal(Integer.parseInt(txtFieldCodigoPostal.getText()));
             user.setDireccion(txtFieldDireccion.getText());
             user.setCreacion(LocalDate.now());
+
             MessageEnum action = MessageEnum.SIGNUP;
-            Mensaje mensaje = new Mensaje(user,action);
+            Mensaje mensaje = new Mensaje(user, action);
+
+            Mensaje msj2 = csk.signUp(mensaje);
+            switch (msj2.getMessageEnum()) {
+                case OK:
+                    abrirSignIn();
+                case ERRORSIGNUP:
+                    throw new CredentialsException("Las credenciales no coinciden.");
+                case ERRORSERVER:
+                    throw new ServerErrorException("Error del server.");
+            }
+
         } catch (NotCompleteException | InvalidEmailFormat | InvalidNameLength | InvalidPassFormat | PassDontMatch | InvalidTlfFormat | InvalidCPFormat ex) {
+            Logger.getLogger(ControllerSignUp.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (CredentialsException ex) {
+            Logger.getLogger(ControllerSignUp.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ServerErrorException ex) {
             Logger.getLogger(ControllerSignUp.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -224,11 +194,10 @@ public class ControllerSignUp {
 
     /**
      * Validar que todos los textfield estén informados mediante el método
-     * checkCompleteFields.
-     * Si no están informados lanzar una excepción notCompleteException con 
-     * el texto “Los campos no están informados”.
-     * 
-     * @throws NotCompleteException 
+     * checkCompleteFields. Si no están informados lanzar una excepción
+     * notCompleteException con el texto “Los campos no están informados”.
+     *
+     * @throws NotCompleteException
      */
     private void checkCompleteFields() throws NotCompleteException {
         if (txtFieldEmailR.getText().isEmpty() || passFieldR.getText().isEmpty() || passFieldR1.getText().isEmpty() || txtFieldNombre.getText().isEmpty() || txtFieldDireccion.getText().isEmpty() || txtFieldCodigoPostal.getText().isEmpty() || txtFieldTelefono.getText().isEmpty()) {
@@ -242,18 +211,18 @@ public class ControllerSignUp {
     /**
      * Validar que la dirección de email contenga un @ y al menos un punto
      * mediante el método de lógica checkValidEmail. Implementar en este
-     * expresiones regulares, la clase Pattern de Java y el método match. 
-     * Si no se cumplen dichas condiciones lanzar un excepción invalidEmailFormat 
-     * con el texto “La dirección de email debe tener un @ y al menos un punto” .     * 
-     * 
+     * expresiones regulares, la clase Pattern de Java y el método match. Si no
+     * se cumplen dichas condiciones lanzar un excepción invalidEmailFormat con
+     * el texto “La dirección de email debe tener un @ y al menos un punto” . *
+     *
      * Validar que el correo escrito tenga un mínimo de tres caracteres antes
      * del @ mediante el método de lógica checkValidEmail. Implementar en este
-     * expresiones regulares, la clase Pattern de Java y el método match. 
-     * Si no se cumplen dicho número de caracteres lanzar una excepción
+     * expresiones regulares, la clase Pattern de Java y el método match. Si no
+     * se cumplen dicho número de caracteres lanzar una excepción
      * invalidEmailFormat con el texto “La dirección de email debe tener al
-     * menos tres caracteres antes del @” 
-     * 
-     * @throws InvalidEmailFormat 
+     * menos tres caracteres antes del @”
+     *
+     * @throws InvalidEmailFormat
      */
     private void checkValidEmail() throws InvalidEmailFormat {
         Pattern pattern1 = Pattern.compile("^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\\.[a-zA-Z]{2,}$");
@@ -277,13 +246,12 @@ public class ControllerSignUp {
     }
 
     /**
-     * Validar que la longitud del nombre tenga un mínimo de 3 caracteres 
-     * con el método de lógica checkNameLength.
-     * Si no cumple dicho mínimo de caracteres, lanzar una excepción
-     * invalidNameLength con el texto “El usuario debe tener al menos tres
-     * caracteres”.
-     * 
-     * @throws InvalidNameLength 
+     * Validar que la longitud del nombre tenga un mínimo de 3 caracteres con el
+     * método de lógica checkNameLength. Si no cumple dicho mínimo de
+     * caracteres, lanzar una excepción invalidNameLength con el texto “El
+     * usuario debe tener al menos tres caracteres”.
+     *
+     * @throws InvalidNameLength
      */
     private void checkNameLength() throws InvalidNameLength {
         Pattern pattern = Pattern.compile("^[a-zA-Z]{3,}+\\s[a-zA-Z]+\\s[a-zA-Z]+$");
@@ -297,16 +265,15 @@ public class ControllerSignUp {
     }
 
     /**
-     * Validar que la contraseña tenga un mínimo de 8 caracteres
-     * con el método de lógica checkPassFormat.
-     * Si no cumple dicho mínimo, lanzar una excepción invalidPassFormat con el 
-     * texto “La contraseña debe tener al menos 8 caracteres”. 
-     * Validar que la contraseña tenga una letra y un número mediante el método 
-     * de lógica checkPassFormat. 
-     * Si no se cumple, lanzar una excepción invalidPassFormat con el texto 
-     * “La contraseña debe tener al menos una letra y un número”.
-     * 
-     * @throws InvalidPassFormat 
+     * Validar que la contraseña tenga un mínimo de 8 caracteres con el método
+     * de lógica checkPassFormat. Si no cumple dicho mínimo, lanzar una
+     * excepción invalidPassFormat con el texto “La contraseña debe tener al
+     * menos 8 caracteres”. Validar que la contraseña tenga una letra y un
+     * número mediante el método de lógica checkPassFormat. Si no se cumple,
+     * lanzar una excepción invalidPassFormat con el texto “La contraseña debe
+     * tener al menos una letra y un número”.
+     *
+     * @throws InvalidPassFormat
      */
     private void checkPassFormat() throws InvalidPassFormat {
         Pattern pattern1 = Pattern.compile("^(.+).{7,}");
@@ -327,12 +294,12 @@ public class ControllerSignUp {
     }
 
     /**
-     * Comprobar que la primera contraseña proporcionada y la segunda 
-     * coinciden con el método de lógica checkPassMatch. 
-     * Si no coinciden, lanzar una excepción passDontMatch con el texto 
-     * “Las contraseñas proporcionadas no coinciden”.
-     * 
-     * @throws PassDontMatch 
+     * Comprobar que la primera contraseña proporcionada y la segunda coinciden
+     * con el método de lógica checkPassMatch. Si no coinciden, lanzar una
+     * excepción passDontMatch con el texto “Las contraseñas proporcionadas no
+     * coinciden”.
+     *
+     * @throws PassDontMatch
      */
     private void checkPassMatch() throws PassDontMatch {
         String pass1 = passFieldR.getText();
@@ -346,12 +313,13 @@ public class ControllerSignUp {
     }
 
     /**
-     * Comprobar que el número de teléfono introducido en txtFieldTelefono 
-     * se compone de 9 dígitos numéricos con el método de lógica checkTlfFormat.
-     * Si las condiciones no se cumplen, lanzar una excepción invalidTlfFormat 
-     * con el texto “Por favor, introduce un número de teléfono de al menos 9 dígitos”.
-     * 
-     * @throws InvalidTlfFormat 
+     * Comprobar que el número de teléfono introducido en txtFieldTelefono se
+     * compone de 9 dígitos numéricos con el método de lógica checkTlfFormat. Si
+     * las condiciones no se cumplen, lanzar una excepción invalidTlfFormat con
+     * el texto “Por favor, introduce un número de teléfono de al menos 9
+     * dígitos”.
+     *
+     * @throws InvalidTlfFormat
      */
     private void checkTlfFormat() throws InvalidTlfFormat {
         Pattern pattern = Pattern.compile("^[0-9]{9}$");
@@ -365,11 +333,11 @@ public class ControllerSignUp {
 
     /**
      * Comprobar que el texto introducido en txtFieldCodigoPostal se compone de
-     * 5 dígitos numéricos con el método de lógica checkCPFormat. 
-     * Si las condiciones no se cumplen, lanzar una excepción invalidCPFormat 
-     * con el texto “Por favor, introduce un código postal de cinco dígitos”.
-     * 
-     * @throws InvalidCPFormat 
+     * 5 dígitos numéricos con el método de lógica checkCPFormat. Si las
+     * condiciones no se cumplen, lanzar una excepción invalidCPFormat con el
+     * texto “Por favor, introduce un código postal de cinco dígitos”.
+     *
+     * @throws InvalidCPFormat
      */
     private void checkCPFormat() throws InvalidCPFormat {
         Pattern pattern = Pattern.compile("^[0-9]{5}$");
@@ -381,7 +349,6 @@ public class ControllerSignUp {
         }
     }
 
-    
     private void closeRequest(WindowEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "¿Estas seguro de que quieres cerrar la aplicacion?",
                 ButtonType.OK, ButtonType.CANCEL);
@@ -393,7 +360,6 @@ public class ControllerSignUp {
             event.consume();
         }
     }
-
 
     public void handleOpenLogIn(ActionEvent actionEvent) {
         try {
@@ -454,5 +420,19 @@ public class ControllerSignUp {
             ivMostrarPassR1.setImage(oCerrado);
         }
 
+    }
+
+    private void abrirSignIn() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/signIn.fxml"));
+
+            Parent root = loader.load();
+
+            ControllerSignIn viewController = ((ControllerSignIn) loader.getController());
+            viewController.setStage(stage);
+            viewController.initStage(root);
+        } catch (IOException ex) {
+            Logger.getLogger(ControllerSignIn.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

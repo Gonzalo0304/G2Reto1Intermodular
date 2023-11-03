@@ -7,6 +7,7 @@ package modelo;
 
 import clases.Mensaje;
 import java.util.logging.Logger;
+import sockets.ClienteSocket;
 
 /**
  *
@@ -17,16 +18,16 @@ public class Implementacion implements InterfazCliente {
     private static final Logger logger = Logger.getLogger(Implementacion.class.getName());
 
     @Override
-    public Mensaje singIn(Mensaje respuesta) {
-        //ClienteSocket socket = new ClienteSocket(respuesta);
-        //respuesta = socket.vueltaMensaje();
+    public Mensaje signIn(Mensaje respuesta) {
+        ClienteSocket socket = new ClienteSocket();
+        respuesta = socket.signIn(respuesta);
         return respuesta;
     }
 
     @Override
     public Mensaje signUp(Mensaje respuesta) {
-        //ClienteSocket socket = new ClienteSocket(respuesta);
-        //respuesta = socket.vueltaMensaje();
+        ClienteSocket socket = new ClienteSocket();
+        respuesta = socket.signUp(respuesta);
         return respuesta;
     }
 

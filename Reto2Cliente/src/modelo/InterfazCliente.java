@@ -12,7 +12,7 @@ import clases.Mensaje;
  * @author Gonzalo
  */
 public interface InterfazCliente {
-    public Mensaje singIn(Mensaje respuesta);
+    public Mensaje signIn(Mensaje respuesta);
     public Mensaje signUp(Mensaje respuesta);
     public void closeApli();
 }

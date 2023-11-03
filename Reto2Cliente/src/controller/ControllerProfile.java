@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 /**
@@ -18,16 +19,21 @@ import javafx.stage.Stage;
 public class ControllerProfile {
 
     Stage stage;
+    String nombre;
 
     @FXML
     private Button btnCerrarSesion;
+    @FXML
+    private Label lblUsuario;
 
     void inicializarVentana(Parent root) {
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
 
         btnCerrarSesion.setOnAction(this::handleLogOut);
+        lblUsuario.setText(nombre);
 
     }
 
@@ -46,8 +52,9 @@ public class ControllerProfile {
 
     }
 
-    void setStage(Stage stage) {
+    void setStage(Stage stage, String nombre) {
         this.stage = stage;
+        this.nombre = nombre;
     }
 
 }
