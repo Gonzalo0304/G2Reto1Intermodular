@@ -153,13 +153,19 @@ public class ControllerSignUp {
     public void signUp(ActionEvent event) {
         ClienteSocket csk = new ClienteSocket();
         try {
+            if (tbMostrarPassR.isSelected()) {
+                passFieldR.setText(txtFieldPassR.getText());
+            }
+            if (tbMostrarPassR1.isSelected()){
+                passFieldR1.setText(txtFieldPassR1.getText());
+            }
             checkCompleteFields();
             checkValidEmail();
             checkNameLength();
             checkPassFormat();
             checkPassMatch();
-            checkTlfFormat();
             checkCPFormat();
+            checkTlfFormat();
             Usuario user = new Usuario();
             user.setEmail(txtFieldEmailR.getText());
             user.setNombre(txtFieldNombre.getText());
@@ -205,12 +211,13 @@ public class ControllerSignUp {
      * @throws NotCompleteException
      */
     private void checkCompleteFields() throws NotCompleteException {
-        if (txtFieldEmailR.getText().isEmpty() || passFieldR.getText().isEmpty() || passFieldR1.getText().isEmpty() || txtFieldNombre.getText().isEmpty() || txtFieldDireccion.getText().isEmpty() || txtFieldCodigoPostal.getText().isEmpty() || txtFieldTelefono.getText().isEmpty()) {
-            logMsg.log(Level.INFO, "Registro Incorrecto");
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Error de registro: \nPorfavor rellene todos los campos", ButtonType.OK);
-            alert.show();
-            throw new NotCompleteException("Los campos no están informados");
-        }
+            if (txtFieldEmailR.getText().isEmpty() || passFieldR.getText().isEmpty() || passFieldR1.getText().isEmpty() || txtFieldNombre.getText().isEmpty() || txtFieldDireccion.getText().isEmpty() || txtFieldCodigoPostal.getText().isEmpty() || txtFieldTelefono.getText().isEmpty()) {
+                logMsg.log(Level.INFO, "Registro Incorrecto");
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Error de registro: \nPorfavor rellene todos los campos", ButtonType.OK);
+                alert.show();
+                throw new NotCompleteException("Los campos no están informados");
+            }
+        
     }
 
     /**
@@ -235,6 +242,7 @@ public class ControllerSignUp {
 
         Matcher matcher = pattern1.matcher(txtFieldEmailR.getText());
         if (matcher.find() == false) {
+            Logger.getLogger("");
             Alert alert = new Alert(Alert.AlertType.ERROR, "Error de registro: \nPorfavor introduzca un correo valido", ButtonType.OK);
             alert.show();
             throw new InvalidEmailFormat("La dirección de email debe tener un @ y al menos un punto");
