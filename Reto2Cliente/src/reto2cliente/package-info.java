@@ -3,11 +3,4 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-/**
- *
- * @author Iñigo
- */
-public class Reto2Servidor {
-    
-}
+package reto2cliente;

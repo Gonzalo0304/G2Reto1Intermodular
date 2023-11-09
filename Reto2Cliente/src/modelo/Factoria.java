@@ -5,10 +5,15 @@
  */
 package modelo;
 
+import clases.InterfaceClienteServidor;
+
 /**
  *
- * @author Iñigo
+ * @author David
  */
 public class Factoria {
-    
+
+    public static InterfaceClienteServidor getInterfaz() {
+        return (InterfaceClienteServidor) new Implementacion();
+    }
 }

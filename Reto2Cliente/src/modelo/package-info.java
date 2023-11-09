@@ -4,11 +4,3 @@
  * and open the template in the editor.
  */
 package modelo;
-
-/**
- *
- * @author Iñigo
- */
-public class Interfaz {
-    
-}
