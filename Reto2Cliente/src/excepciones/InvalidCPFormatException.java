@@ -6,16 +6,18 @@
 package excepciones;
 
 /**
+ * Esta es la excepcion para cuando el formato del Codigo postal esta mal
+ * introducido a la hora de registrarse
  *
  * @author Gonzalo
  */
-public class InvalidCPFormat extends Exception {
+public class InvalidCPFormatException extends Exception {
 
     /**
      * Creates a new instance of <code>InvalidCPFormat</code> without detail
      * message.
      */
-    public InvalidCPFormat() {
+    public InvalidCPFormatException() {
     }
 
     /**
@@ -24,7 +26,7 @@ public class InvalidCPFormat extends Exception {
      *
      * @param msg the detail message.
      */
-    public InvalidCPFormat(String msg) {
+    public InvalidCPFormatException(String msg) {
         super(msg);
     }
 }

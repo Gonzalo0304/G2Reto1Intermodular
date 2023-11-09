@@ -86,14 +86,14 @@
       <TextField fx:id="txtFieldDireccion" layoutX="118.0" layoutY="261.0" prefHeight="25.0" prefWidth="150.0" />
       <TextField fx:id="txtFieldCodigoPostal" layoutX="425.0" layoutY="258.0" prefHeight="25.0" prefWidth="150.0" />
       <TextField fx:id="txtFieldTelefono" layoutX="119.0" layoutY="300.0" prefHeight="25.0" prefWidth="150.0" />
-      <Hyperlink fx:id="hplNoCuenta" layoutX="200.0" layoutY="339.0" onAction="#openSignIn" prefHeight="23.0" prefWidth="271.0" text="¿Ya tienes cuenta? Inicia sesión" textFill="#565b56" />
+      <Hyperlink fx:id="hplSiCuenta" layoutX="200.0" layoutY="339.0" prefHeight="23.0" prefWidth="271.0" text="¿Ya tienes cuenta? Inicia sesión" textFill="#565b56" />
       <Label layoutX="34.0" layoutY="62.0" text="Datos básicos:" textFill="#394e57">
          <font>
             <Font name="System Bold" size="17.0" />
          </font>
       </Label>
       <Separator blendMode="DIFFERENCE" layoutX="33.0" layoutY="196.0" opacity="0.2" prefHeight="8.0" prefWidth="545.0" />
-      <Button fx:id="btnRegistrarse" layoutX="238.0" layoutY="369.0" mnemonicParsing="false" onAction="#signUp" prefHeight="33.0" prefWidth="127.0" text="Registrarse">
+      <Button fx:id="btnRegistrarse" layoutX="238.0" layoutY="369.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="127.0" text="Registrarse">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

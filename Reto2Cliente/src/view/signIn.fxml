@@ -41,14 +41,14 @@
          </graphic>
       </ToggleButton>
       <Hyperlink fx:id="hplNoCuenta" layoutX="316.0" layoutY="269.0" prefHeight="23.0" prefWidth="217.0" text="¿No tienes cuenta? Regístrate" textFill="#383b51" underline="true" />
-      <Button id="button" fx:id="btnIniciarSesion" layoutX="333.0" layoutY="316.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" stylesheets="@styles.css" text="Iniciar sesión">
+      <Button fx:id="btnIniciarSesion" layoutX="333.0" layoutY="316.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" stylesheets="@styles.css" text="Iniciar sesión">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
       </Button>
       <ImageView fitHeight="448.0" fitWidth="480.0" layoutX="-249.0">
          <image>
-            <Image url="@EE.png" />
+            <Image url="@fondo.png" />
          </image>
       </ImageView>
    </children>

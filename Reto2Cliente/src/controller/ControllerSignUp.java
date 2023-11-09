@@ -5,17 +5,17 @@
  */
 package controller;
 
+import clases.InterfaceClienteServidor;
 import clases.Mensaje;
-import clases.MessageEnum;
 import clases.Usuario;
 import excepciones.CredentialsException;
-import excepciones.InvalidCPFormat;
-import excepciones.NotCompleteException;
-import excepciones.InvalidEmailFormat;
-import excepciones.InvalidPassFormat;
-import excepciones.PassDontMatch;
-import excepciones.InvalidNameLength;
-import excepciones.InvalidTlfFormat;
+import excepciones.InvalidCPFormatException;
+import excepciones.NotCompleteExceptionException;
+import excepciones.InvalidEmailFormatException;
+import excepciones.InvalidPassFormatException;
+import excepciones.PassDontMatchException;
+import excepciones.InvalidNameLengthException;
+import excepciones.InvalidTlfFormatException;
 import excepciones.ServerErrorException;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -40,8 +40,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import modelo.Factoria;
 import modelo.Implementacion;
-import modelo.InterfazCliente;
 import sockets.ClienteSocket;
 
 /**
@@ -80,7 +80,7 @@ public class ControllerSignUp {
     @FXML
     private ImageView ivMostrarPassR1;
     @FXML
-    private Hyperlink hplNoCuenta;
+    private Hyperlink hplSiCuenta;
     @FXML
     private ToggleButton tbMostrarPassR;
     @FXML
@@ -104,11 +104,11 @@ public class ControllerSignUp {
         btnRegistrarse.setDefaultButton(true);
         txtFieldPassR.setFocusTraversable(false);
         txtFieldPassR1.setFocusTraversable(false);
-        btnRegistrarse.setOnAction(this::signUp);
-        hplNoCuenta.setOnAction(this::openSignIn);
+        btnRegistrarse.setOnAction(this::handleSignUp);
+        hplSiCuenta.setOnAction(this::handleOpenSignIn);
         tbMostrarPassR.setOnAction(this::handleShowPassR);
         tbMostrarPassR1.setOnAction(this::handleShowPassR1);
-        stage.setOnCloseRequest(this::closeRequest);
+        stage.setOnCloseRequest(this::handleCloseRequest);
         stage.show();
     }
 
@@ -119,7 +119,7 @@ public class ControllerSignUp {
      * @param event
      */
     @FXML
-    public void openSignIn(ActionEvent event) {
+    public void handleOpenSignIn(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/view/signIn.fxml"));
@@ -150,13 +150,13 @@ public class ControllerSignUp {
      * @param event
      */
     @FXML
-    public void signUp(ActionEvent event) {
+    public void handleSignUp(ActionEvent event) {
         ClienteSocket csk = new ClienteSocket();
         try {
             if (tbMostrarPassR.isSelected()) {
                 passFieldR.setText(txtFieldPassR.getText());
             }
-            if (tbMostrarPassR1.isSelected()){
+            if (tbMostrarPassR1.isSelected()) {
                 passFieldR1.setText(txtFieldPassR1.getText());
             }
             checkCompleteFields();
@@ -164,26 +164,26 @@ public class ControllerSignUp {
             checkNameLength();
             checkPassFormat();
             checkPassMatch();
-            checkCPFormat();
             checkTlfFormat();
-            Usuario user = new Usuario();
-            user.setEmail(txtFieldEmailR.getText());
-            user.setNombre(txtFieldNombre.getText());
-            user.setPass(passFieldR.getText());
-            user.setTelefono(Integer.parseInt(txtFieldTelefono.getText()));
-            user.setCodigoPostal(Integer.parseInt(txtFieldCodigoPostal.getText()));
-            user.setDireccion(txtFieldDireccion.getText());
-            user.setCreacion(LocalDate.now());
+            checkCPFormat();
+            Usuario us = new Usuario();
+            us.setEmail(txtFieldEmailR.getText());
+            us.setNombre(txtFieldNombre.getText());
+            us.setPass(passFieldR.getText());
+            us.setTelefono(Integer.parseInt(txtFieldTelefono.getText()));
+            us.setCodigoPostal(Integer.parseInt(txtFieldCodigoPostal.getText()));
+            us.setDireccion(txtFieldDireccion.getText());
+            us.setCreacion(LocalDate.now());
 
-            MessageEnum action = MessageEnum.SIGNUP;
-            Mensaje mensaje = new Mensaje(user, action);
+            Factoria fac = new Factoria();
+            Implementacion imp = (Implementacion) fac.getInterfaz();
+            Mensaje msj2 = imp.signUp(us);
 
-            Mensaje msj2 = csk.signUp(mensaje);
             switch (msj2.getMessageEnum()) {
                 case OK:
                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "Creación de Usuario realizada correctamente.", ButtonType.OK);
                     alert.show();
-                    abrirSignIn();
+                    handleOpenSignIn(event);
                     break;
                 case ERRORSIGNUP:
                     throw new CredentialsException("Las credenciales no coinciden.");
@@ -193,7 +193,7 @@ public class ControllerSignUp {
                     System.out.println("Creacion correcta");
             }
 
-        } catch (NotCompleteException | InvalidEmailFormat | InvalidNameLength | InvalidPassFormat | PassDontMatch | InvalidTlfFormat | InvalidCPFormat ex) {
+        } catch (NotCompleteExceptionException | InvalidEmailFormatException | InvalidNameLengthException | InvalidPassFormatException | PassDontMatchException | InvalidTlfFormatException | InvalidCPFormatException ex) {
             Logger.getLogger(ControllerSignUp.class.getName()).log(Level.SEVERE, null, ex);
         } catch (CredentialsException ex) {
             Logger.getLogger(ControllerSignUp.class.getName()).log(Level.SEVERE, null, ex);
@@ -208,16 +208,16 @@ public class ControllerSignUp {
      * checkCompleteFields. Si no están informados lanzar una excepción
      * notCompleteException con el texto “Los campos no están informados”.
      *
-     * @throws NotCompleteException
+     * @throws NotCompleteExceptionException
      */
-    private void checkCompleteFields() throws NotCompleteException {
-            if (txtFieldEmailR.getText().isEmpty() || passFieldR.getText().isEmpty() || passFieldR1.getText().isEmpty() || txtFieldNombre.getText().isEmpty() || txtFieldDireccion.getText().isEmpty() || txtFieldCodigoPostal.getText().isEmpty() || txtFieldTelefono.getText().isEmpty()) {
-                logMsg.log(Level.INFO, "Registro Incorrecto");
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Error de registro: \nPorfavor rellene todos los campos", ButtonType.OK);
-                alert.show();
-                throw new NotCompleteException("Los campos no están informados");
-            }
-        
+    private void checkCompleteFields() throws NotCompleteExceptionException {
+        if (txtFieldEmailR.getText().isEmpty() || passFieldR.getText().isEmpty() || passFieldR1.getText().isEmpty() || txtFieldNombre.getText().isEmpty() || txtFieldDireccion.getText().isEmpty() || txtFieldCodigoPostal.getText().isEmpty() || txtFieldTelefono.getText().isEmpty()) {
+            logMsg.log(Level.INFO, "Registro Incorrecto");
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Error de registro: \nPorfavor rellene todos los campos", ButtonType.OK);
+            alert.setHeaderText(null);
+            alert.show();
+            throw new NotCompleteExceptionException("Los campos no están informados");
+        }
     }
 
     /**
@@ -234,26 +234,27 @@ public class ControllerSignUp {
      * invalidEmailFormat con el texto “La dirección de email debe tener al
      * menos tres caracteres antes del @”
      *
-     * @throws InvalidEmailFormat
+     * @throws InvalidEmailFormatException
      */
-    private void checkValidEmail() throws InvalidEmailFormat {
+    private void checkValidEmail() throws InvalidEmailFormatException {
         Pattern pattern1 = Pattern.compile("^[a-zA-Z0-9._]+@[a-zA-Z0-9]+\\.[a-zA-Z]{2,}$");
         Pattern pattern2 = Pattern.compile("^[a-zA-Z0-9._]{3,}+@(.+)$");
 
         Matcher matcher = pattern1.matcher(txtFieldEmailR.getText());
         if (matcher.find() == false) {
-            Logger.getLogger("");
             Alert alert = new Alert(Alert.AlertType.ERROR, "Error de registro: \nPorfavor introduzca un correo valido", ButtonType.OK);
+            alert.setHeaderText(null);
             alert.show();
-            throw new InvalidEmailFormat("La dirección de email debe tener un @ y al menos un punto");
+            throw new InvalidEmailFormatException("La dirección de email debe tener un @ y al menos un punto");
 
         }
 
         matcher = pattern2.matcher(txtFieldEmailR.getText());
         if (matcher.find() == false) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Error de registro: \nPorfavor introduzca un correo que contenga 3 caracteres antes del @", ButtonType.OK);
+            alert.setHeaderText(null);
             alert.show();
-            throw new InvalidEmailFormat("La dirección de email debe tener al menos tres caracteres antes del @");
+            throw new InvalidEmailFormatException("La dirección de email debe tener al menos tres caracteres antes del @");
         }
 
     }
@@ -264,15 +265,16 @@ public class ControllerSignUp {
      * caracteres, lanzar una excepción invalidNameLength con el texto “El
      * usuario debe tener al menos tres caracteres”.
      *
-     * @throws InvalidNameLength
+     * @throws InvalidNameLengthException
      */
-    private void checkNameLength() throws InvalidNameLength {
+    private void checkNameLength() throws InvalidNameLengthException {
         Pattern pattern = Pattern.compile("^[a-zA-Z]{3,}+\\s[a-zA-Z]+\\s[a-zA-Z]+$");
         Matcher matcher = pattern.matcher(txtFieldNombre.getText());
         if (matcher.find() == false) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Error de registro: \nPorfavor un nombre valido", ButtonType.OK);
+            alert.setHeaderText(null);
             alert.show();
-            throw new InvalidNameLength("El nombre debe tener al menos tres caracteres");
+            throw new InvalidNameLengthException("El nombre debe tener al menos tres caracteres");
 
         }
     }
@@ -286,23 +288,25 @@ public class ControllerSignUp {
      * lanzar una excepción invalidPassFormat con el texto “La contraseña debe
      * tener al menos una letra y un número”.
      *
-     * @throws InvalidPassFormat
+     * @throws InvalidPassFormatException
      */
-    private void checkPassFormat() throws InvalidPassFormat {
+    private void checkPassFormat() throws InvalidPassFormatException {
         Pattern pattern1 = Pattern.compile("^(.+).{7,}");
         Pattern pattern2 = Pattern.compile("^(?=.*[a-zA-Z])(?=.*[0-9]).");
         Matcher matcher = pattern1.matcher(passFieldR.getText());
         if (matcher.find() == false) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Error de registro: \nPorfavor introduce una contraseña valida con 8 caracteres un numero y una letra minimo", ButtonType.OK);
+            alert.setHeaderText(null);
             alert.show();
-            throw new InvalidPassFormat("La contraseña debe tener al menos 8 caracteres");
+            throw new InvalidPassFormatException("La contraseña debe tener al menos 8 caracteres");
         }
 
         matcher = pattern2.matcher(passFieldR.getText());
         if (matcher.find() == false) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Error de registro: \nPorfavor introduce una contraseña valida con 8 caracteres un numero y una letra minimo", ButtonType.OK);
+            alert.setHeaderText(null);
             alert.show();
-            throw new InvalidPassFormat("La contraseña debe tener al menos una letra y un número");
+            throw new InvalidPassFormatException("La contraseña debe tener al menos una letra y un número");
         }
     }
 
@@ -312,16 +316,17 @@ public class ControllerSignUp {
      * excepción passDontMatch con el texto “Las contraseñas proporcionadas no
      * coinciden”.
      *
-     * @throws PassDontMatch
+     * @throws PassDontMatchException
      */
-    private void checkPassMatch() throws PassDontMatch {
+    private void checkPassMatch() throws PassDontMatchException {
         String pass1 = passFieldR.getText();
         String pass2 = passFieldR1.getText();
 
         if (!pass1.equals(pass2)) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Error de registro: \nPorfavor que las contraseñas coinciden", ButtonType.OK);
+            alert.setHeaderText(null);
             alert.show();
-            throw new PassDontMatch("Las contraseñas proporcionadas no coinciden");
+            throw new PassDontMatchException("Las contraseñas proporcionadas no coinciden");
         }
     }
 
@@ -332,15 +337,16 @@ public class ControllerSignUp {
      * el texto “Por favor, introduce un número de teléfono de al menos 9
      * dígitos”.
      *
-     * @throws InvalidTlfFormat
+     * @throws InvalidTlfFormatException
      */
-    private void checkTlfFormat() throws InvalidTlfFormat {
+    private void checkTlfFormat() throws InvalidTlfFormatException {
         Pattern pattern = Pattern.compile("^[0-9]{9}$");
         Matcher matcher = pattern.matcher(txtFieldTelefono.getText());
         if (matcher.find() == false) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Error de registro: \nPorfavor introduzca un numero de telefono valido");
+            alert.setHeaderText(null);
             alert.show();
-            throw new InvalidTlfFormat("Por favor, introduce un número de teléfono de al menos 9 dígitos");
+            throw new InvalidTlfFormatException("Por favor, introduce un número de teléfono de al menos 9 dígitos");
         }
     }
 
@@ -350,43 +356,28 @@ public class ControllerSignUp {
      * condiciones no se cumplen, lanzar una excepción invalidCPFormat con el
      * texto “Por favor, introduce un código postal de cinco dígitos”.
      *
-     * @throws InvalidCPFormat
+     * @throws InvalidCPFormatException
      */
-    private void checkCPFormat() throws InvalidCPFormat {
+    private void checkCPFormat() throws InvalidCPFormatException {
         Pattern pattern = Pattern.compile("^[0-9]{5}$");
         Matcher matcher = pattern.matcher(txtFieldCodigoPostal.getText());
         if (matcher.find() == false) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Error de registro: \nPorfavor introduzca un codigo postal valido");
+            alert.setHeaderText(null);
             alert.show();
-            throw new InvalidCPFormat("“Por favor, introduce un código postal de cinco dígitos");
+            throw new InvalidCPFormatException("“Por favor, introduce un código postal de cinco dígitos");
         }
     }
 
-    private void closeRequest(WindowEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "¿Estas seguro de que quieres cerrar la aplicacion?",
-                ButtonType.OK, ButtonType.CANCEL);
+    private void handleCloseRequest(WindowEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "¿Estas seguro de que quieres cerrar la aplicacion?",ButtonType.OK, ButtonType.CANCEL);
+        alert.setHeaderText(null);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            InterfazCliente inter = new Implementacion();
+            InterfaceClienteServidor inter = new Implementacion();
             inter.closeApli();
         } else {
             event.consume();
-        }
-    }
-
-    public void handleOpenLogIn(ActionEvent actionEvent) {
-        try {
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/signIn.fxml"));
-
-            Parent root = loader.load();
-
-            ControllerSignIn viewController = ((ControllerSignIn) loader.getController());
-            viewController.setStage(stage);
-            viewController.initStage(root);
-
-        } catch (IOException ex) {
-            Logger.getLogger(ControllerSignIn.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -435,17 +426,4 @@ public class ControllerSignUp {
 
     }
 
-    private void abrirSignIn() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/signIn.fxml"));
-
-            Parent root = loader.load();
-
-            ControllerSignIn viewController = ((ControllerSignIn) loader.getController());
-            viewController.setStage(stage);
-            viewController.initStage(root);
-        } catch (IOException ex) {
-            Logger.getLogger(ControllerSignIn.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 }

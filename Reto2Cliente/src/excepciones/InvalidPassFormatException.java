@@ -6,16 +6,18 @@
 package excepciones;
 
 /**
+ * Esta es la excepcion para cuando el formato d ela contraseña es incorrecto a
+ * la hora de registrarse
  *
  * @author Gonzalo
  */
-public class InvalidPassFormat extends Exception {
+public class InvalidPassFormatException extends Exception {
 
     /**
      * Creates a new instance of <code>InvalidPassFormat</code> without detail
      * message.
      */
-    public InvalidPassFormat() {
+    public InvalidPassFormatException() {
     }
 
     /**
@@ -24,7 +26,7 @@ public class InvalidPassFormat extends Exception {
      *
      * @param msg the detail message.
      */
-    public InvalidPassFormat(String msg) {
+    public InvalidPassFormatException(String msg) {
         super(msg);
     }
 }

@@ -1,12 +1,11 @@
 package controller;
 
 import clases.Mensaje;
-import clases.MessageEnum;
 import clases.Usuario;
 import excepciones.CredentialsException;
-import excepciones.InvalidEmailFormat;
-import excepciones.InvalidPassFormat;
-import excepciones.NotCompleteException;
+import excepciones.InvalidEmailFormatException;
+import excepciones.InvalidPassFormatException;
+import excepciones.NotCompleteExceptionException;
 import excepciones.ServerErrorException;
 import java.io.IOException;
 import java.util.Optional;
@@ -31,6 +30,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import modelo.Factoria;
+import modelo.Implementacion;
 import sockets.ClienteSocket;
 
 /**
@@ -87,6 +88,9 @@ public class ControllerSignIn {
      */
     @FXML
     public void handleSignIn(ActionEvent actionEvent) {
+        if (tbMostrarPass.isSelected()) {
+            passField.setText(txtFieldPass.getText());
+        }
         String pass = passField.getText();
         String texto = txtFieldEmail.getText();
         ClienteSocket csk = new ClienteSocket();
@@ -94,15 +98,15 @@ public class ControllerSignIn {
             if (checkCompleteFileds(pass, texto)) {
                 if (!checkValidEmail(texto)) {
                     if (!checkValidPass(pass)) {
-                        Mensaje msj = new Mensaje();
+
+                        Factoria fac = new Factoria();
+                        Implementacion imp = (Implementacion) fac.getInterfaz();
+
                         Usuario us = new Usuario();
                         us.setEmail(texto);
                         us.setPass(pass);
 
-                        msj.setUser(us);
-                        msj.setMessageEnum(MessageEnum.SIGNIN);
-
-                        Mensaje msj2 = csk.signIn(msj);
+                        Mensaje msj2 = imp.signIn(us);
 
                         switch (msj2.getMessageEnum()) {
                             case OK:
@@ -114,26 +118,26 @@ public class ControllerSignIn {
                                 throw new ServerErrorException("Error del server.");
                         }
                     } else {
-                        throw new InvalidPassFormat("Error de inicio de sesión: \nPorfavor introduzca las credenciales correctamente");
+                        throw new InvalidPassFormatException("Error de inicio de sesión: \nPorfavor introduzca las credenciales correctamente");
                     }
 
                 } else {
-                    throw new InvalidEmailFormat("Error de inicio de sesión: \nPorfavor introduzca las credenciales correctamente");
+                    throw new InvalidEmailFormatException("Error de inicio de sesión: \nPorfavor introduzca las credenciales correctamente");
                 }
 
             } else {
-                throw new NotCompleteException("Error: \nLos campos no están informados");
+                throw new NotCompleteExceptionException("Error: \nLos campos no están informados");
 
             }
-        } catch (NotCompleteException ex) {
+        } catch (NotCompleteExceptionException ex) {
             Alert alerta = new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK);
             alerta.setHeaderText(null);
             alerta.show();
-        } catch (InvalidEmailFormat ex) {
+        } catch (InvalidEmailFormatException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK);
             alert.setHeaderText(null);
             alert.show();
-        } catch (InvalidPassFormat ex) {
+        } catch (InvalidPassFormatException ex) {
             Alert alert = new Alert(Alert.AlertType.ERROR, ex.getMessage(), ButtonType.OK);
             alert.setHeaderText(null);
             alert.show();
@@ -154,7 +158,6 @@ public class ControllerSignIn {
     /*Logger.getLogger(ControllerSignIn.class.getName()).log(Level.SEVERE, null, ex);
         } catch (CredentialsException ex) {
             Logger.getLogger(ControllerSignIn.class.getName()).log(Level.SEVERE, null, ex);*/
-
     /**
      * Abrir la ventana signUp y cerrar la ventana signIn.
      *
@@ -234,7 +237,7 @@ public class ControllerSignIn {
 
     }
 
-    private boolean checkValidEmail(String texto) throws InvalidEmailFormat {
+    private boolean checkValidEmail(String texto) throws InvalidEmailFormatException {
         boolean emailBien = false;
         Pattern pattern1 = Pattern.compile("^[a-zA-Z0-9._]{3,}+@[a-zA-Z0-9]+\\.[a-zA-Z]{2,}$");
 

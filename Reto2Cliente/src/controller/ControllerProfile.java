@@ -26,7 +26,7 @@ public class ControllerProfile {
     @FXML
     private Label lblUsuario;
 
-    void inicializarVentana(Parent root) {
+    public void inicializarVentana(Parent root) {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(false);
@@ -52,7 +52,7 @@ public class ControllerProfile {
 
     }
 
-    void setStage(Stage stage, String nombre) {
+    public void setStage(Stage stage, String nombre) {
         this.stage = stage;
         this.nombre = nombre;
     }

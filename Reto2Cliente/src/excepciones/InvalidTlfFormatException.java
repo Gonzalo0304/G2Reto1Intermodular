@@ -6,16 +6,18 @@
 package excepciones;
 
 /**
+ * Esta es la excepcion para cuando el formato dle telefono es incorrecto a la
+ * hora de registrarse
  *
  * @author Gonzalo
  */
-public class InvalidTlfFormat extends Exception {
+public class InvalidTlfFormatException extends Exception {
 
     /**
      * Creates a new instance of <code>InvalidTlfFormat</code> without detail
      * message.
      */
-    public InvalidTlfFormat() {
+    public InvalidTlfFormatException() {
     }
 
     /**
@@ -24,7 +26,7 @@ public class InvalidTlfFormat extends Exception {
      *
      * @param msg the detail message.
      */
-    public InvalidTlfFormat(String msg) {
+    public InvalidTlfFormatException(String msg) {
         super(msg);
     }
 }

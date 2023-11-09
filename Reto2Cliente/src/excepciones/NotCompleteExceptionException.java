@@ -6,16 +6,18 @@
 package excepciones;
 
 /**
+ * Esta es la excepcion para cuando los campos del registro no estan todos
+ * informados
  *
  * @author Gonzalo
  */
-public class NotCompleteException extends Exception {
+public class NotCompleteExceptionException extends Exception {
 
     /**
      * Creates a new instance of <code>NotCompleteException</code> without
      * detail message.
      */
-    public NotCompleteException() {
+    public NotCompleteExceptionException() {
     }
 
     /**
@@ -24,7 +26,7 @@ public class NotCompleteException extends Exception {
      *
      * @param msg the detail message.
      */
-    public NotCompleteException(String msg) {
+    public NotCompleteExceptionException(String msg) {
         super(msg);
     }
 }

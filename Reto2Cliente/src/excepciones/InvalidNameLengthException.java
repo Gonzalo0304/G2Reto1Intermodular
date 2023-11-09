@@ -6,16 +6,18 @@
 package excepciones;
 
 /**
+ * Esta es la excepcion para cuando la logitud del Nombre esta mal introducida a la hora de registrarse
+ * en el registro
  *
  * @author Gonzalo
  */
-public class InvalidNameLength extends Exception {
+public class InvalidNameLengthException extends Exception {
 
     /**
      * Creates a new instance of <code>InvalidNameLength</code> without detail
      * message.
      */
-    public InvalidNameLength() {
+    public InvalidNameLengthException() {
     }
 
     /**
@@ -24,7 +26,7 @@ public class InvalidNameLength extends Exception {
      *
      * @param msg the detail message.
      */
-    public InvalidNameLength(String msg) {
+    public InvalidNameLengthException(String msg) {
         super(msg);
     }
 }

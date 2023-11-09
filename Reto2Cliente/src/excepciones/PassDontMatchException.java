@@ -6,16 +6,18 @@
 package excepciones;
 
 /**
+ * Esta es la excepcion del registro cuando las contraseañas introducidas no
+ * coinciden
  *
  * @author Gonzalo
  */
-public class PassDontMatch extends Exception {
+public class PassDontMatchException extends Exception {
 
     /**
      * Creates a new instance of <code>PassDontMatch</code> without detail
      * message.
      */
-    public PassDontMatch() {
+    public PassDontMatchException() {
     }
 
     /**
@@ -24,7 +26,7 @@ public class PassDontMatch extends Exception {
      *
      * @param msg the detail message.
      */
-    public PassDontMatch(String msg) {
+    public PassDontMatchException(String msg) {
         super(msg);
     }
 }

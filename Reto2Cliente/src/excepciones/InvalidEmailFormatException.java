@@ -6,16 +6,18 @@
 package excepciones;
 
 /**
+ * Esta es la excepcion para cuando el formato de el Email esta mal introducido
+ * a la hora de registrarse
  *
  * @author Gonzalo
  */
-public class InvalidEmailFormat extends Exception {
+public class InvalidEmailFormatException extends Exception {
 
     /**
      * Creates a new instance of <code>InvalidEmailFormat</code> without detail
      * message.
      */
-    public InvalidEmailFormat() {
+    public InvalidEmailFormatException() {
     }
 
     /**
@@ -24,7 +26,7 @@ public class InvalidEmailFormat extends Exception {
      *
      * @param msg the detail message.
      */
-    public InvalidEmailFormat(String msg) {
+    public InvalidEmailFormatException(String msg) {
         super(msg);
     }
 }
