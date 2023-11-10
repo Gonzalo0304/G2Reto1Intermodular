@@ -16,6 +16,7 @@ import static org.testfx.api.FxAssert.verifyThat;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 import static org.testfx.matcher.base.NodeMatchers.isVisible;
+import static org.testfx.matcher.control.TextInputControlMatchers.hasText;
 import reto2cliente.Reto2Cliente;
 
 /**
@@ -49,146 +50,146 @@ public class TestSignUp extends ApplicationTest {
 
     }
 
-//    @Test
-//    public void test1() {
-//        verifyThat("#txtFieldEmailR", hasText(""));
-//        verifyThat("#txtFieldNombre", hasText(""));
-//        verifyThat("#passFieldR", hasText(""));
-//        verifyThat("#passFieldR1", hasText(""));
-//        verifyThat("#txtFieldDireccion", hasText(""));
-//        verifyThat("#txtFieldCodigoPostal", hasText(""));
-//        verifyThat("#txtFieldTelefono", hasText(""));
-//    }
-//    
-//    
-//    @Test
-//    public void test2() {
-//        clickOn("#txtFieldEmailR");
-//        write("username");
-//        clickOn("#btnRegistrarse");
-//        clickOn("Aceptar");
-//        
-//    }
-//    
-//    @Test
-//    public void test3() {
-//        clickOn("#txtFieldEmailR");
-//        write("username");
-//        clickOn("#txtFieldNombre");
-//        write("username");
-//        clickOn("#passFieldR");
-//        write("pass");
-//        clickOn("#passFieldR1");
-//        write("pass");
-//        clickOn("#tbMostrarPassR");
-//        clickOn("#tbMostrarPassR1");
-//        clickOn("#tbMostrarPassR");
-//        clickOn("#tbMostrarPassR1");
-//        clickOn("#txtFieldDireccion");
-//        write("direccion");
-//        clickOn("#txtFieldCodigoPostal");
-//        write("00");
-//        clickOn("#txtFieldTelefono");
-//        write("655");
-//        clickOn("#btnRegistrarse");
-//        clickOn("Aceptar");
-//    }
-//    
-//    @Test
-//    public void test4() {
-//        clickOn("#txtFieldEmailR");
-//        write("username@gmail.com");
-//        clickOn("#txtFieldNombre");
-//        write("username");
-//        clickOn("#passFieldR");
-//        write("pass");
-//        clickOn("#passFieldR1");
-//        write("pass");
-//        clickOn("#tbMostrarPassR");
-//        clickOn("#tbMostrarPassR1");
-//        clickOn("#tbMostrarPassR");
-//        clickOn("#tbMostrarPassR1");
-//        clickOn("#txtFieldDireccion");
-//        write("direccion");
-//        clickOn("#txtFieldCodigoPostal");
-//        write("00");
-//        clickOn("#txtFieldTelefono");
-//        write("655");
-//        clickOn("#btnRegistrarse");
-//        clickOn("Aceptar");
-//    }
-//    
-//    @Test
-//    public void test6() {
-//        clickOn("#txtFieldEmailR");
-//        write("username@gmail.com");
-//        clickOn("#txtFieldNombre");
-//        write("username user name");
-//        clickOn("#passFieldR");
-//        write("password");
-//        clickOn("#passFieldR1");
-//        write("pass");
-//        clickOn("#tbMostrarPassR");
-//        clickOn("#tbMostrarPassR1");
-//        clickOn("#tbMostrarPassR");
-//        clickOn("#tbMostrarPassR1");
-//        clickOn("#txtFieldDireccion");
-//        write("direccion");
-//        clickOn("#txtFieldCodigoPostal");
-//        write("00");
-//        clickOn("#txtFieldTelefono");
-//        write("655");
-//        clickOn("#btnRegistrarse");
-//        clickOn("Aceptar");
-//    }
-//    
-//    @Test
-//    public void test7() {
-//        clickOn("#txtFieldEmailR");
-//        write("username@gmail.com");
-//        clickOn("#txtFieldNombre");
-//        write("username user name");
-//        clickOn("#passFieldR");
-//        write("password");
-//        clickOn("#passFieldR1");
-//        write("password");
-//        clickOn("#tbMostrarPassR");
-//        clickOn("#tbMostrarPassR1");
-//        clickOn("#tbMostrarPassR");
-//        clickOn("#tbMostrarPassR1");
-//        clickOn("#txtFieldDireccion");
-//        write("direccion");
-//        clickOn("#txtFieldCodigoPostal");
-//        write("00");
-//        clickOn("#txtFieldTelefono");
-//        write("655");
-//        clickOn("#btnRegistrarse");
-//        clickOn("Aceptar");
-//    }
-//    
-//    @Test
-//    public void test8() {
-//        clickOn("#txtFieldEmailR");
-//        write("username@gmail.com");
-//        clickOn("#txtFieldNombre");
-//        write("username user name");
-//        clickOn("#passFieldR");
-//        write("password1");
-//        clickOn("#passFieldR1");
-//        write("password1");
-//        clickOn("#tbMostrarPassR");
-//        clickOn("#tbMostrarPassR1");
-//        clickOn("#tbMostrarPassR");
-//        clickOn("#tbMostrarPassR1");
-//        clickOn("#txtFieldDireccion");
-//        write("direccion");
-//        clickOn("#txtFieldCodigoPostal");
-//        write("00000");
-//        clickOn("#txtFieldTelefono");
-//        write("656");
-//        clickOn("#btnRegistrarse");
-//        clickOn("Aceptar");
-//    }
+    @Test
+    public void test1() {
+        verifyThat("#txtFieldEmailR", hasText(""));
+        verifyThat("#txtFieldNombre", hasText(""));
+        verifyThat("#passFieldR", hasText(""));
+        verifyThat("#passFieldR1", hasText(""));
+        verifyThat("#txtFieldDireccion", hasText(""));
+        verifyThat("#txtFieldCodigoPostal", hasText(""));
+        verifyThat("#txtFieldTelefono", hasText(""));
+    }
+    
+    
+    @Test
+    public void test2() {
+        clickOn("#txtFieldEmailR");
+        write("username");
+        clickOn("#btnRegistrarse");
+        clickOn("Aceptar");
+        
+    }
+    
+    @Test
+    public void test3() {
+        clickOn("#txtFieldEmailR");
+        write("username");
+        clickOn("#txtFieldNombre");
+        write("username");
+        clickOn("#passFieldR");
+        write("pass");
+        clickOn("#passFieldR1");
+        write("pass");
+        clickOn("#tbMostrarPassR");
+        clickOn("#tbMostrarPassR1");
+        clickOn("#tbMostrarPassR");
+        clickOn("#tbMostrarPassR1");
+        clickOn("#txtFieldDireccion");
+        write("direccion");
+        clickOn("#txtFieldCodigoPostal");
+        write("00");
+        clickOn("#txtFieldTelefono");
+        write("655");
+        clickOn("#btnRegistrarse");
+        clickOn("Aceptar");
+    }
+    
+    @Test
+    public void test4() {
+        clickOn("#txtFieldEmailR");
+        write("username@gmail.com");
+        clickOn("#txtFieldNombre");
+        write("username");
+        clickOn("#passFieldR");
+        write("pass");
+        clickOn("#passFieldR1");
+        write("pass");
+        clickOn("#tbMostrarPassR");
+        clickOn("#tbMostrarPassR1");
+        clickOn("#tbMostrarPassR");
+        clickOn("#tbMostrarPassR1");
+        clickOn("#txtFieldDireccion");
+        write("direccion");
+        clickOn("#txtFieldCodigoPostal");
+        write("00");
+        clickOn("#txtFieldTelefono");
+        write("655");
+        clickOn("#btnRegistrarse");
+        clickOn("Aceptar");
+    }
+    
+    @Test
+    public void test6() {
+        clickOn("#txtFieldEmailR");
+        write("username@gmail.com");
+        clickOn("#txtFieldNombre");
+        write("username user name");
+        clickOn("#passFieldR");
+        write("password");
+        clickOn("#passFieldR1");
+        write("pass");
+        clickOn("#tbMostrarPassR");
+        clickOn("#tbMostrarPassR1");
+        clickOn("#tbMostrarPassR");
+        clickOn("#tbMostrarPassR1");
+        clickOn("#txtFieldDireccion");
+        write("direccion");
+        clickOn("#txtFieldCodigoPostal");
+        write("00");
+        clickOn("#txtFieldTelefono");
+        write("655");
+        clickOn("#btnRegistrarse");
+        clickOn("Aceptar");
+    }
+    
+    @Test
+    public void test7() {
+        clickOn("#txtFieldEmailR");
+        write("username@gmail.com");
+        clickOn("#txtFieldNombre");
+        write("username user name");
+        clickOn("#passFieldR");
+        write("password");
+        clickOn("#passFieldR1");
+        write("password");
+        clickOn("#tbMostrarPassR");
+        clickOn("#tbMostrarPassR1");
+        clickOn("#tbMostrarPassR");
+        clickOn("#tbMostrarPassR1");
+        clickOn("#txtFieldDireccion");
+        write("direccion");
+        clickOn("#txtFieldCodigoPostal");
+        write("00");
+        clickOn("#txtFieldTelefono");
+        write("655");
+        clickOn("#btnRegistrarse");
+        clickOn("Aceptar");
+    }
+    
+    @Test
+    public void test8() {
+        clickOn("#txtFieldEmailR");
+        write("username@gmail.com");
+        clickOn("#txtFieldNombre");
+        write("username user name");
+        clickOn("#passFieldR");
+        write("password1");
+        clickOn("#passFieldR1");
+        write("password1");
+        clickOn("#tbMostrarPassR");
+        clickOn("#tbMostrarPassR1");
+        clickOn("#tbMostrarPassR");
+        clickOn("#tbMostrarPassR1");
+        clickOn("#txtFieldDireccion");
+        write("direccion");
+        clickOn("#txtFieldCodigoPostal");
+        write("00000");
+        clickOn("#txtFieldTelefono");
+        write("656");
+        clickOn("#btnRegistrarse");
+        clickOn("Aceptar");
+    }
     @Test
     public void test9() {
         clickOn("#txtFieldEmailR");
