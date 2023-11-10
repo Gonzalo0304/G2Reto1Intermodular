@@ -15,8 +15,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * La clase ClienteSocket implementa la interfaz InterfaceClienteServidor y se
+ * encarga de establecer la comunicación con el servidor a través de sockets.
+ * Proporciona métodos para realizar operaciones como inicio de sesión (signIn),
+ * registro de usuario (signUp), cierre de la aplicación (closeApli), inserción
+ * de usuario, y verificación de registro e inicio de sesión.
  *
- * @author David.
+ * Uso: Se utiliza para enviar mensajes al servidor y recibir las respuestas
+ * correspondientes. Además, incluye métodos específicos para realizar
+ * operaciones relacionadas con el usuario y la aplicación.
+ *
+ * Ejemplo: ```java ClienteSocket clienteSocket = new ClienteSocket(); Mensaje
+ * respuestaSignIn = clienteSocket.signIn(usuario); Mensaje respuestaSignUp =
+ * clienteSocket.signUp(usuario); clienteSocket.closeApli(); ```
+ *
+ * @author David
  */
 public class ClienteSocket implements InterfaceClienteServidor {
 
@@ -25,21 +38,46 @@ public class ClienteSocket implements InterfaceClienteServidor {
 
     Mensaje msj2;
 
+    /**
+     * Realiza la operación de inicio de sesión (signIn) enviando un mensaje al
+     * servidor.
+     *
+     * @param us El objeto Usuario con las credenciales de inicio de sesión.
+     * @return Un objeto Mensaje que contiene la respuesta del servidor.
+     */
     @Override
     public Mensaje signIn(Usuario us) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Realiza la operación de registro de usuario (signUp) enviando un mensaje
+     * al servidor.
+     *
+     * @param us El objeto Usuario con los datos para el registro.
+     * @return Un objeto Mensaje que contiene la respuesta del servidor.
+     */
     @Override
     public Mensaje signUp(Usuario us) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Cierra la aplicación. Este método finaliza la ejecución del programa.
+     */
     @Override
     public void closeApli() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Establece la conexión con el servidor y realiza una operación específica
+     * enviando un mensaje.
+     *
+     * @param respuesta El objeto Mensaje que contiene la información a enviar
+     * al servidor.
+     * @return Un objeto Mensaje que contiene la respuesta del servidor.
+     */
     @Override
     public Mensaje conexion(Mensaje respuesta) {
         ObjectOutputStream oos = null;
@@ -73,16 +111,40 @@ public class ClienteSocket implements InterfaceClienteServidor {
         return msj;
     }
 
+    /**
+     * Inserta un nuevo usuario en el sistema.
+     *
+     * @param usuario El objeto Usuario a insertar.
+     * @return Un valor de tipo MessageEnum que representa el resultado de la
+     * operación.
+     * @throws CheckSignUpException Si ocurre un error durante la operación de
+     * registro.
+     */
     @Override
     public MessageEnum insertUser(Usuario usuario) throws CheckSignUpException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Verifica el registro de un usuario en el sistema.
+     *
+     * @param usuario El objeto Usuario a verificar.
+     * @return Un entero que representa el resultado de la verificación.
+     * @throws CheckSignUpException Si ocurre un error durante la verificación.
+     */
     @Override
     public Integer checkSignUp(Usuario usuario) throws CheckSignUpException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Verifica el inicio de sesión de un usuario en el sistema.
+     *
+     * @param usuario El objeto Usuario a verificar.
+     * @return Un valor de tipo MessageEnum que representa el resultado de la
+     * verificación.
+     * @throws CheckSignInException Si ocurre un error durante la verificación.
+     */
     @Override
     public MessageEnum checkSignIn(Usuario usuario) throws CheckSignInException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

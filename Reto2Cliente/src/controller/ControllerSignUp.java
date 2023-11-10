@@ -45,8 +45,22 @@ import modelo.Implementacion;
 import sockets.ClienteSocket;
 
 /**
+ * Controlador para la ventana de registro. Permite a los usuarios registrarse.
+ * Esta ventana muestra un formulario de registro donde los usuarios pueden
+ * introducir los credenciales que desean asignar a su cuenta (Email, Nombre
+ * completo, Contraseña por duplicado, Dirección, Número de teléfono y Código
+ * Postal). Cuando se validan los datos, sale un aviso por pantalla informando
+ * al usuario de que el registro se ha realizado correctamente y el usuario
+ * accede nuevamente a la ventana de Iniciar Sesión. También proporciona un
+ * enlace para acceder a la ventana de registro.
  *
- * @author David, Gonzalo.
+ * Comportamiento: - Muestra la ventana. - La ventana es modal. - La ventana no
+ * es redimensionable. - Todo debe estar habilitado. - El foco está establecido
+ * en el campo de email (txtFieldEmail). - El botón por defecto es el botón de
+ * Iniciar Sesión (btnIniciarSesion). - Establece el título de la ventana en
+ * "SignUp".
+ *
+ * @author Iñigo, Gonzalo.
  */
 public class ControllerSignUp {
 
@@ -189,8 +203,12 @@ public class ControllerSignUp {
                     throw new CredentialsException("Las credenciales no coinciden.");
                 case ERRORSERVER:
                     throw new ServerErrorException("Error del server.");
-                default:
-                    System.out.println("Creacion correcta");
+                case MAXUSERS:
+                    Alert alert4 = new Alert(Alert.AlertType.ERROR, "Error de servidor: \n Maximo de usuarios en servidor intentelo mas tarde", ButtonType.OK);
+                    alert4.setHeaderText(null);
+                    alert4.show();
+                    throw new ServerErrorException("Numero maximo de usuarios en el servidor");
+
             }
 
         } catch (NotCompleteExceptionException | InvalidEmailFormatException | InvalidNameLengthException | InvalidPassFormatException | PassDontMatchException | InvalidTlfFormatException | InvalidCPFormatException ex) {
@@ -370,7 +388,7 @@ public class ControllerSignUp {
     }
 
     private void handleCloseRequest(WindowEvent event) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "¿Estas seguro de que quieres cerrar la aplicacion?",ButtonType.OK, ButtonType.CANCEL);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "¿Estas seguro de que quieres cerrar la aplicacion?", ButtonType.OK, ButtonType.CANCEL);
         alert.setHeaderText(null);
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
