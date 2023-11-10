@@ -35,6 +35,19 @@ import modelo.Implementacion;
 import sockets.ClienteSocket;
 
 /**
+ * Controlador para la ventana de inicio de sesión. Permite a los usuarios
+ * iniciar sesión, registrarse y realizar otras operaciones relacionadas.
+ *
+ * Esta ventana muestra un formulario de inicio de sesión donde los usuarios
+ * pueden introducir sus credenciales (Email y Contraseña). Cuando se validan
+ * los datos, el usuario accede a la ventana de Profile. También proporciona un
+ * enlace para acceder a la ventana de registro.
+ *
+ * Comportamiento: - Inicialización: La ventana se inicializa con las siguientes
+ * configuraciones. - Iniciar Sesión: Permite al usuario iniciar sesión después
+ * de validar los campos de entrada. - Mostrar/Ocultar Contraseña: Permite al
+ * usuario mostrar u ocultar la contraseña. - Registrarse: Permite al usuario
+ * acceder a la ventana de registro.
  *
  * @author David
  */
@@ -56,6 +69,18 @@ public class ControllerSignIn {
     @FXML
     private ImageView ivMostrarPass;
 
+    /**
+     * Inicializa la ventana de inicio de sesión con las configuraciones
+     * iniciales.
+     *
+     * - Muestra la ventana en modal. - La ventana no es redimensionable. -
+     * Establece el foco en el campo de correo electrónico (txtFieldEmail). - El
+     * botón por defecto es el botón de Iniciar sesión (btnIniciarSesion). -
+     * Establece el título de la ventana como "Sign In".
+     *
+     * @param root La raíz de la escena a mostrar en la ventana de inicio de
+     * sesión.
+     */
     public void initStage(Parent root) {
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -78,13 +103,20 @@ public class ControllerSignIn {
         tbMostrarPass.setOnAction(this::handleShowPass);
     }
 
+    /**
+     * Establece el escenario para el controlador.
+     *
+     * @param stage El escenario de la ventana de inicio de sesión.
+     */
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
+    // Comentarios para otros métodos y eventos...
     /**
+     * Maneja el evento de inicio de sesión.
      *
-     * @param actionEvent
+     * @param actionEvent El evento de clic en el botón de inicio de sesión.
      */
     @FXML
     public void handleSignIn(ActionEvent actionEvent) {
@@ -110,12 +142,18 @@ public class ControllerSignIn {
 
                         switch (msj2.getMessageEnum()) {
                             case OK:
-                                openProfile(msj2.getUser().getNombre());
+                                openProfile(txtFieldEmail.getText());
                                 break;
                             case ERRORSIGNIN:
                                 throw new CredentialsException("Las credenciales no coinciden.");
                             case ERRORSERVER:
                                 throw new ServerErrorException("Error del server.");
+                            case MAXUSERS:
+                                Alert alert4 = new Alert(Alert.AlertType.ERROR, "Error de servidor: \n Maximo de usuarios en servidor intentelo mas tarde", ButtonType.OK);
+                                alert4.setHeaderText(null);
+                                alert4.show();
+                                throw new ServerErrorException("Numero maximo de usuarios en el servidor");
+
                         }
                     } else {
                         throw new InvalidPassFormatException("Error de inicio de sesión: \nPorfavor introduzca las credenciales correctamente");
@@ -155,13 +193,10 @@ public class ControllerSignIn {
 
     }
 
-    /*Logger.getLogger(ControllerSignIn.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (CredentialsException ex) {
-            Logger.getLogger(ControllerSignIn.class.getName()).log(Level.SEVERE, null, ex);*/
     /**
      * Abrir la ventana signUp y cerrar la ventana signIn.
      *
-     * @param actionEvent
+     * @param actionEvent El evento de acción.
      */
     @FXML
     public void handleOpenSignUp(ActionEvent actionEvent) {
@@ -237,6 +272,14 @@ public class ControllerSignIn {
 
     }
 
+    /**
+     * Verifica si el formato del correo electrónico es válido.
+     *
+     * @param texto El correo electrónico a verificar.
+     * @return true si el formato es válido, false en caso contrario.
+     * @throws InvalidEmailFormat Si el formato del correo electrónico es
+     * inválido.
+     */
     private boolean checkValidEmail(String texto) throws InvalidEmailFormatException {
         boolean emailBien = false;
         Pattern pattern1 = Pattern.compile("^[a-zA-Z0-9._]{3,}+@[a-zA-Z0-9]+\\.[a-zA-Z]{2,}$");
@@ -249,6 +292,12 @@ public class ControllerSignIn {
 
     }
 
+    /**
+     * Verifica si la contraseña cumple con los requisitos de longitud mínima.
+     *
+     * @param pass La contraseña a verificar.
+     * @return true si la longitud es válida, false en caso contrario.
+     */
     private boolean checkValidPass(String pass) {
         boolean passBien = false;
         if (pass.length() < 8) {
@@ -257,10 +306,23 @@ public class ControllerSignIn {
         return passBien;
     }
 
+    /**
+     * Verifica si los campos de correo electrónico y contraseña están
+     * completos.
+     *
+     * @param pass La contraseña ingresada.
+     * @param texto El correo electrónico ingresado.
+     * @return true si ambos campos están completos, false en caso contrario.
+     */
     private boolean checkCompleteFileds(String pass, String texto) {
         return !texto.isEmpty() && !pass.isEmpty();
     }
 
+    /**
+     * Abre la ventana de perfil con el nombre de usuario proporcionado.
+     *
+     * @param nombre El nombre de usuario.
+     */
     private void openProfile(String nombre) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/profile.fxml"));
@@ -275,5 +337,3 @@ public class ControllerSignIn {
         }
     }
 }
-
-//final static Stack<Connection> = null;

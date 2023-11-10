@@ -26,10 +26,17 @@ public class ControllerProfile {
     @FXML
     private Label lblUsuario;
 
+    /**
+     * Inicializa la ventana del perfil con la escena especificada.
+     * Configura el botón para cerrar sesión y muestra el nombre de usuario.
+     *
+     * @param root La raíz de la escena a mostrar en la ventana del perfil.
+     */
     public void inicializarVentana(Parent root) {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(false);
+        lblUsuario.setText(nombre);
         stage.show();
 
         btnCerrarSesion.setOnAction(this::handleLogOut);
@@ -37,6 +44,11 @@ public class ControllerProfile {
 
     }
 
+    /**
+      * Maneja el evento de cierre de sesión. Carga la ventana de inicio de sesión.
+     *
+     * @param actionEvent El evento de clic en el botón de cerrar sesión.
+     */
     public void handleLogOut(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/signIn.fxml"));
@@ -52,6 +64,12 @@ public class ControllerProfile {
 
     }
 
+    /**
+      * Establece el escenario y el nombre de usuario que inicia sesion en la ventana de perfil.
+     *
+     * @param stage El escenario de la ventana del perfil.
+     * @param nombre El nombre de usuario a mostrar en la ventana.
+     */
     public void setStage(Stage stage, String nombre) {
         this.stage = stage;
         this.nombre = nombre;
