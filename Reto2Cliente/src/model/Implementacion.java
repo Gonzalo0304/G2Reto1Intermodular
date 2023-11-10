@@ -121,7 +121,7 @@ public class Implementacion implements InterfaceClienteServidor {
      * Establece la conexión con el servidor y realiza una operación específica
      * enviando un mensaje.
      *
-     * @param mensaje El objeto Mensaje que contiene la información a enviar al
+     * @param msj El objeto Mensaje que contiene la información a enviar al
      * servidor.
      * @return Un objeto Mensaje que contiene la respuesta del servidor.
      */

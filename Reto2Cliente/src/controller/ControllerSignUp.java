@@ -107,7 +107,7 @@ public class ControllerSignUp {
      * Iniciar sesión (btnIniciarSesion) Establecer el título de ventana al
      * valor: “Sign In”.
      *
-     * @param root
+     * @param root pasamos el root para incializar la escena
      */
     public void initStage(Parent root) {
         Scene scene = new Scene(root);
@@ -130,7 +130,7 @@ public class ControllerSignUp {
      * Hyperlink: abrir la ventana signUp con el metodo openSignUp y cerrar la
      * ventana signIn.
      *
-     * @param event
+     * @param event El evento de acción.
      */
     @FXML
     public void handleOpenSignIn(ActionEvent event) {
@@ -161,7 +161,7 @@ public class ControllerSignUp {
      * Sign Up y abrir ventana de singIn. Si se produce cualquier excepción en
      * el proceso, mostrar un mensaje al usuario con el texto de la excepción.
      *
-     * @param event
+     * @param event El evento de acción.
      */
     @FXML
     public void handleSignUp(ActionEvent event) {

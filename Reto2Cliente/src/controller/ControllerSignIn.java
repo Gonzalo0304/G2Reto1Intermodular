@@ -218,7 +218,7 @@ public class ControllerSignIn {
     /**
      * Método que oculta o muestra el contenido de la contraseña.
      *
-     * @param actionEvent
+     * @param actionEvent El evento de acción.
      */
     @FXML
     public void handleShowPass(ActionEvent actionEvent) {
@@ -256,7 +256,7 @@ public class ControllerSignIn {
      * Método que solicita confirmación antes de cerrar la ventana cuando se
      * pulsa la x de la parte superior derecha.
      *
-     * @param windowEvent
+     * @param windowEvent El evento de la ventana.
      */
     @FXML
     public void handleCloseWindow(WindowEvent windowEvent) {
