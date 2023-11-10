@@ -4,3 +4,6 @@
  * and open the template in the editor.
  */
 package excepciones;
+/**
+ * Paquete con las excepciones del cliente
+ */

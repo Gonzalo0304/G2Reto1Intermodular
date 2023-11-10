@@ -4,3 +4,6 @@
  * and open the template in the editor.
  */
 package reto2cliente;
+/**
+ * Paquete con la clase main
+ */
