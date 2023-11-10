@@ -30,8 +30,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import modelo.Factoria;
-import modelo.Implementacion;
+import model.Factoria;
+import model.Implementacion;
 import sockets.ClienteSocket;
 
 /**
