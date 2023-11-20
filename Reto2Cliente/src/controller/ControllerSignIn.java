@@ -140,14 +140,14 @@ public class ControllerSignIn {
 
                         Mensaje msj2 = imp.signIn(us);
 
-                        switch (msj2.getMessageEnum()) {
+                         switch (msj2.getMessageEnum()) {
                             case OK:
                                 openProfile(txtFieldEmail.getText());
                                 break;
                             case ERRORSIGNIN:
-                                throw new CredentialsException("Las credenciales no coinciden.");
+                                throw new CredentialsException("Las credenciales(" + txtFieldEmail.getText() + " y " + passField.getText() + ")\nno coinciden.");
                             case ERRORSERVER:
-                                throw new ServerErrorException("Error del server.");
+                                throw new ServerErrorException("Error del server. No has podido iniciar sesión con: " + txtFieldEmail.getText() + " y " + passField.getText());
                             case MAXUSERS:
                                 Alert alert4 = new Alert(Alert.AlertType.ERROR, "Error de servidor: \n Maximo de usuarios en servidor intentelo mas tarde", ButtonType.OK);
                                 alert4.setHeaderText(null);
@@ -156,11 +156,11 @@ public class ControllerSignIn {
 
                         }
                     } else {
-                        throw new InvalidPassFormatException("Error de inicio de sesión: \nPorfavor introduzca las credenciales correctamente");
+                        throw new InvalidPassFormatException("Error de inicio de sesión: \nPorfavor introduzca las credenciales correctamente. (Ej. 123456789)");
                     }
 
                 } else {
-                    throw new InvalidEmailFormatException("Error de inicio de sesión: \nPorfavor introduzca las credenciales correctamente");
+                    throw new InvalidEmailFormatException("Error de inicio de sesión: \nPorfavor introduzca las credenciales correctamente. (Ej. ejemplo@gmail.com)");
                 }
 
             } else {

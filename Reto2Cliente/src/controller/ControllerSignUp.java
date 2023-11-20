@@ -200,7 +200,10 @@ public class ControllerSignUp {
                     handleOpenSignIn(event);
                     break;
                 case ERRORSIGNUP:
-                    throw new CredentialsException("Las credenciales no coinciden.");
+                    Alert alert2 = new Alert(Alert.AlertType.ERROR, "Error de servidor: \n Usuario repetido email ya existente", ButtonType.OK);
+                    alert2.setHeaderText(null);
+                    alert2.show();
+                    throw new CredentialsException("Usuario repetido.");
                 case ERRORSERVER:
                     throw new ServerErrorException("Error del server.");
                 case MAXUSERS:
@@ -289,10 +292,14 @@ public class ControllerSignUp {
         Pattern pattern = Pattern.compile("^[a-zA-Z]{3,}+\\s[a-zA-Z]+\\s[a-zA-Z]+$");
         Matcher matcher = pattern.matcher(txtFieldNombre.getText());
         if (matcher.find() == false) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Error de registro: \nPorfavor un nombre valido", ButtonType.OK);
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Error de registro: \nEl campo de Nombre debe estar compuesto "
+                    + "de tu nombre y dos apellidos separados por espacios. Tu nombre de pila "
+                    + "debe tener al menos tres caracteres.", ButtonType.OK);
             alert.setHeaderText(null);
             alert.show();
-            throw new InvalidNameLengthException("El nombre debe tener al menos tres caracteres");
+            throw new InvalidNameLengthException("El campo de Nombre debe estar compuesto del "
+                    + "nombre y dos apellidos del usuario separados por espacios. Su nombre de "
+                    + "pila debe tener al menos tres caracteres.");
 
         }
     }
