@@ -4,3 +4,6 @@
  * and open the template in the editor.
  */
 package controller;
+/**
+ * Controladores de las ventanas de javafx
+ */

@@ -107,7 +107,7 @@ public class ControllerSignUp {
      * Iniciar sesión (btnIniciarSesion) Establecer el título de ventana al
      * valor: “Sign In”.
      *
-     * @param root
+     * @param root pasamos el root para incializar la escena
      */
     public void initStage(Parent root) {
         Scene scene = new Scene(root);
@@ -130,7 +130,7 @@ public class ControllerSignUp {
      * Hyperlink: abrir la ventana signUp con el metodo openSignUp y cerrar la
      * ventana signIn.
      *
-     * @param event
+     * @param event El evento de acción.
      */
     @FXML
     public void handleOpenSignIn(ActionEvent event) {
@@ -161,7 +161,7 @@ public class ControllerSignUp {
      * Sign Up y abrir ventana de singIn. Si se produce cualquier excepción en
      * el proceso, mostrar un mensaje al usuario con el texto de la excepción.
      *
-     * @param event
+     * @param event El evento de acción.
      */
     @FXML
     public void handleSignUp(ActionEvent event) {
@@ -200,7 +200,10 @@ public class ControllerSignUp {
                     handleOpenSignIn(event);
                     break;
                 case ERRORSIGNUP:
-                    throw new CredentialsException("Las credenciales no coinciden.");
+                    Alert alert2 = new Alert(Alert.AlertType.ERROR, "Error de servidor: \n Usuario repetido email ya existente", ButtonType.OK);
+                    alert2.setHeaderText(null);
+                    alert2.show();
+                    throw new CredentialsException("Usuario repetido.");
                 case ERRORSERVER:
                     throw new ServerErrorException("Error del server.");
                 case MAXUSERS:
@@ -289,10 +292,14 @@ public class ControllerSignUp {
         Pattern pattern = Pattern.compile("^[a-zA-Z]{3,}+\\s[a-zA-Z]+\\s[a-zA-Z]+$");
         Matcher matcher = pattern.matcher(txtFieldNombre.getText());
         if (matcher.find() == false) {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "Error de registro: \nPorfavor un nombre valido", ButtonType.OK);
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Error de registro: \nEl campo de Nombre debe estar compuesto "
+                    + "de tu nombre y dos apellidos separados por espacios. Tu nombre de pila "
+                    + "debe tener al menos tres caracteres.", ButtonType.OK);
             alert.setHeaderText(null);
             alert.show();
-            throw new InvalidNameLengthException("El nombre debe tener al menos tres caracteres");
+            throw new InvalidNameLengthException("El campo de Nombre debe estar compuesto del "
+                    + "nombre y dos apellidos del usuario separados por espacios. Su nombre de "
+                    + "pila debe tener al menos tres caracteres.");
 
         }
     }

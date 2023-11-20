@@ -4,3 +4,6 @@
  * and open the template in the editor.
  */
 package sockets;
+/**
+ * Paquete con socket para la conexion del cliente con el servidor
+ */

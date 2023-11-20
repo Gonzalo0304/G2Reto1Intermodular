@@ -4,3 +4,6 @@
  * and open the template in the editor.
  */
 package model;
+/**
+ * Paquete con la implementacion y la factoria del cliente
+ */

@@ -4,3 +4,6 @@
  * and open the template in the editor.
  */
 package view;
+/**
+ * Paquete con los archivos .fxml e imagenes de las ventanas
+ */
